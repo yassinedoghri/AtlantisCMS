@@ -1,3 +1,6 @@
+# PHPStorm
+.idea
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -46,3 +49,9 @@
 
 # Backup entities generated with doctrine:generate:entities command
 */Entity/*~
+
+# Static
+/static/npm-debug.log
+/static/node_modules
+/static/.sass-cache
+/static/vendors

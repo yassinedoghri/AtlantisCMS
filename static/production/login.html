@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Atlantis CMS</title>
+
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Animate.css -->
+        <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+
+        <!-- Custom Theme Style -->
+        <link href="../build/css/custom.min.css" rel="stylesheet">
+    </head>
+
+    <body class="login">
+        <div class="login_wrapper">
+            <section class="login_content">
+                <form class="login_form">
+                    <div class="row">
+                        <a href="index.html" class="site_title col-md-12">
+                            <span class="sr-only">Atlantis CMS</span>
+                            <img src="../build/images/logo.svg" class="site_logo" alt="Atlantis Logo">
+                        </a>
+                    </div>
+                    <h1>CMS Login</h1>
+
+                    <div class="form-group input input--chisato">
+                        <input class="input__field input__field--chisato" type="text" id="input-13"/>
+                        <label class="input__label input__label--chisato" for="input-13">
+						<span class="input__label-content input__label-content--chisato"
+                              data-content="Email">Email</span>
+                        </label>
+                    </div>
+                    <div class="form-group input input--chisato">
+                        <input class="input__field input__field--chisato" type="password" id="input-14"/>
+                        <label class="input__label input__label--chisato" for="input-14">
+                                <span class="input__label-content input__label-content--chisato"
+                                      data-content="Password">Password</span>
+                        </label>
+                    </div>
+                    <div class="login-footer">
+                        <a href="#" class="pull-right pwd-lost">Lost your password?</a>
+                        <button class="btn btn-default" href="index.html">Log in</button>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <p class="copyright">©2017 Atlantis Corp. All Rights Reserved.</p>
+                </form>
+            </section>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <script src="../build/js/classie.js"></script>
+        <script>
+            (function () {
+                // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+                if (!String.prototype.trim) {
+                    (function () {
+                        // Make sure we trim BOM and NBSP
+                        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+                        String.prototype.trim = function () {
+                            return this.replace(rtrim, '');
+                        };
+                    })();
+                }
+
+                [].slice.call(document.querySelectorAll('input.input__field')).forEach(function (inputEl) {
+                    // in case the input is already filled..
+                    if (inputEl.value.trim() !== '') {
+                        classie.add(inputEl.parentNode, 'input--filled');
+                    }
+
+                    // events:
+                    inputEl.addEventListener('focus', onInputFocus);
+                    inputEl.addEventListener('blur', onInputBlur);
+                });
+
+                function onInputFocus(ev) {
+                    classie.add(ev.target.parentNode, 'input--filled');
+                }
+
+                function onInputBlur(ev) {
+                    if (ev.target.value.trim() === '') {
+                        classie.remove(ev.target.parentNode, 'input--filled');
+                    }
+                }
+            })();
+        </script>
+    </body>
+</html>
