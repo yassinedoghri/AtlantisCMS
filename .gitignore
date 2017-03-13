@@ -1,22 +1,18 @@
-# PHPStorm
-.idea
-
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-
 # Email spool folder
 /app/spool/*
 
 # Cache, session files and logs (Symfony3)
+/var/*
+!/var/cache
 /var/cache/*
-/var/logs/*
-/var/sessions/*
 !var/cache/.gitkeep
+!/var/logs
+/var/logs/*
 !var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
 !var/sessions/.gitkeep
+!var/SymfonyRequirements.php
 
 # Parameters
 /app/config/parameters.yml
@@ -33,9 +29,7 @@
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
-
-# Assets managed by Bower
-/web/assets/vendor/
+/web/assets/
 
 # PHPUnit
 /app/phpunit.xml
@@ -48,10 +42,16 @@
 /composer.phar
 
 # Backup entities generated with doctrine:generate:entities command
-*/Entity/*~
+**/Entity/*~
+
+# PhpStorm
+.idea
+
+# Netbeans
+nbproject
 
 # Static
 /static/npm-debug.log
-/static/node_modules
+/static/node_modules/
 /static/.sass-cache
-/static/vendors
+/static/vendors/
