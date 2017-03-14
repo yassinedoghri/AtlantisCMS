@@ -14,20 +14,22 @@ Atlantis CMS is a Crisis Management System web app to monitor crisis situations 
 
 These instructions will get you a copy of the project up and running on your local machine for development purposes.
 
-1. Download and Install one of these software bundles:
+#### 1. Download and Install one of these software bundles:
 
  - [WAMP](http://www.wampserver.com/) (recommended)
  - [XAMPP](https://www.apachefriends.org/fr/index.html)
  - [EASYPHP](http://www.easyphp.org/)
  - etc.
 
-2. Install [Git](https://git-scm.com/downloads)
+#### 2. Install [Git](https://git-scm.com/downloads)
 
 - (Optional) Install [github desktop](https://desktop.github.com/)
 
-3. Clone the project to your computer (**eg.** to the `C:/wamp/www` folder)
+#### 3. Clone the project to your computer
 
-4. Download and Install [Composer](https://getcomposer.org/download/):
+- **eg.** clone it to the `C:/wamp/www` folder
+
+#### 4. Download and Install [Composer](https://getcomposer.org/download/):
 
  - Specify the path to the PHP executable which was installed with the first step
  - After installation, use the command line, go to the root of the project and run:
@@ -38,9 +40,9 @@ $ composer update
 ```
 
 _**NB.** A prompt will ask you to input the project parameters to create the `/app/config/parameters.yml` file.
-Enter the relevant parameters or leave it to default values._
+Enter the relevant parameters or leave it to default values._  
 
-5. Install [NodeJS](https://nodejs.org/en/) and [Bower](https://bower.io/#install-bower)
+#### 5. Install [NodeJS](https://nodejs.org/en/) and [Bower](https://bower.io/#install-bower)
 
 On the root or `static` folder of the project, you can now:
 
@@ -58,7 +60,7 @@ $ bower install
 $ npm install
 ```
 
-6. To run the Symfony3 website, go to the project root folder with the command line and execute:
+#### 6. To run the Symfony3 website, go to the project root folder with the command line and execute:
  
 ```sh
  $ php bin/console server:run
