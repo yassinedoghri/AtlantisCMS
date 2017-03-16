@@ -1,0 +1,46 @@
+{
+  "name": "AtlantisCMS",
+  "version": "0.1.0",
+  "description": "Atlantis CMS is a Crisis Management System web app to monitor crisis situations in Singapore",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puikinsh/gentelella.git"
+  },
+  "keywords": [
+    "web-app",
+    "real-time",
+    "symfony",
+    "css",
+    "js",
+    "html",
+    "admin",
+    "bootstrap",
+    "crisis",
+    "management",
+    "system"
+  ],
+  "author": "Yassine Doghri",
+  "contributors": [
+    "Yassine Doghri",
+    "..."
+  ],
+  "license": "MIT",
+  "main": "build/js/custom.min.js",
+  "bugs": {
+    "url": "https://github.com/yassinedoghri/AtlantisCMS/issues"
+  },
+  "homepage": "https://github.com/yassinedoghri/AtlantisCMS",
+  "devDependencies": {
+    "browser-sync": "^2.12.10",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-compass": "^2.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-uglify": "^1.5.3"
+  }
+}

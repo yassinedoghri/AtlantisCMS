@@ -45,13 +45,19 @@
 **/Entity/*~
 
 # PhpStorm
-.idea
+.idea/
 
 # Netbeans
-nbproject
+nbproject/
 
 # Static
 /static/npm-debug.log
 /static/node_modules/
-/static/.sass-cache
+/static/.sass-cache/
 /static/vendors/
+
+# NodeJS modules
+node_modules/
+
+# Cache
+.sass-cache/

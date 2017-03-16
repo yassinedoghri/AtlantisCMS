@@ -1,0 +1,27 @@
+AppBundle\Entity\Category:
+    type: entity
+    table: category
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        wording:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+        markerImg:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+            column: marker_img
+    lifecycleCallbacks: {  }

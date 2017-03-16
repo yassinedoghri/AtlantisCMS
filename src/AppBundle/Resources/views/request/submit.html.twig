@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/select2/dist/css/select2.min.css') }}">
+{% endblock %}
+
+{% block page_content %}
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Form Elements</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Assistance request</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br/>
+                        <form id="demo-form2" data-parsley-validate
+                              class="form-horizontal form-label-left">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                       for="first-name">Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" id="first-name" required="required"
+                                           class="form-control col-md-7 col-xs-12"
+                                           placeholder="First Name">
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" id="last-name" name="last-name"
+                                           required="required" class="form-control col-md-7 col-xs-12"
+                                           placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone-number"
+                                       class="control-label col-md-3 col-sm-3 col-xs-12">Phone
+                                    Number <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="phone-number" name="phone-number" type="text"
+                                           required="required" class="form-control col-md-7 col-xs-12"
+                                           data-inputmask="'mask' : '(+99) 9999 9999'">
+                                    <span class="fa fa-phone form-control-feedback right"
+                                          aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Incident
+                                    Location
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="location-address"
+                                           class="form-control col-md-7 col-xs-12"
+                                           required="required" type="text" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="location-address-2"
+                                           class="form-control col-md-7 col-xs-12" type="text"
+                                           placeholder="Bulding Unit Number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                </label>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <input id="location-postal-code"
+                                           class="form-control col-md-7 col-xs-12"
+                                           required="required" type="text" placeholder="Postal code">
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <input id="location-city"
+                                           class="form-control col-md-7 col-xs-12"
+                                           required="required" type="text" placeholder="City">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="location-country"
+                                           class="form-control col-md-7 col-xs-12"
+                                           required="required" type="text" placeholder="Country">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Type of
+                                    assistance
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select id="type-assistance"
+                                            class="form-control col-md-7 col-xs-12"
+                                            required="required" multiple="multiple">
+                                        <option value="AL">Emergency Ambulance</option>
+                                        <option value="WY">Rescue and Evacuation</option>
+                                        <option value="WY">Fire-Fighting</option>
+                                        <option value="WY">Gas Leak Control</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select
+                                            class="form-control col-md-7 col-xs-12"
+                                            required="required">
+                                        <option value="AL">In Progress</option>
+                                        <option value="WY">Done</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group text-right">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button class="btn btn-default" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- jquery.inputmask -->
+    <script src="{{ asset('assets/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('assets/vendors/select2/dist/js/select2.full.min.js') }}"></script>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <script type="text/javascript">
+        $("#type-assistance").select2({
+            placeholder: "Select one or multiple types of assistance..."
+        });
+    </script>
+{% endblock %}

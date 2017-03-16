@@ -1,0 +1,153 @@
+AppBundle\Entity\Crisis:
+    type: entity
+    table: crisis
+    indexes:
+        submitted_by:
+            columns:
+                - submitted_by
+        modified_by:
+            columns:
+                - modified_by
+        category:
+            columns:
+                - category
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        contactFirstname:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+            column: contact_firstname
+        contactLastname:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+            column: contact_lastname
+        contactPhoneNumber:
+            type: string
+            nullable: false
+            length: 12
+            options:
+                fixed: false
+            column: contact_phone_number
+        addressLine1:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: address_line1
+        addressLine2:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: address_line2
+        postalCode:
+            type: string
+            nullable: false
+            length: 6
+            options:
+                fixed: false
+            column: postal_code
+        city:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+        country:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+        latitude:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+        longitude:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+        message:
+            type: blob
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        status:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+        submittedOn:
+            type: date
+            nullable: false
+            column: submitted_on
+        closedOn:
+            type: date
+            nullable: true
+            column: closed_on
+        lastModification:
+            type: date
+            nullable: false
+            column: last_modification
+        showToPublic:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: show_to_public
+    manyToOne:
+        submittedBy:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                submitted_by:
+                    referencedColumnName: id
+            orphanRemoval: false
+        modifiedBy:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                modified_by:
+                    referencedColumnName: id
+            orphanRemoval: false
+        category:
+            targetEntity: Category
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                category:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        assistanceList:
+            targetEntity: Request
+            mappedBy: crisis
+    lifecycleCallbacks: {  }
