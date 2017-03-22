@@ -60,12 +60,20 @@
                                      class="img-circle profile_img">
                             </div>
                             <div class="profile_info">
+                                <span>Welcome,</span>
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    <span>Welcome,</span>
-                                    <h2>John Doe</h2>
+                                    <h2>{{ app.user.firstname }} {{ app.user.lastname }}</h2>
                                 {% else %}
-                                    <span>Welcome,</span>
-                                    <h2>Anonymous</h2>
+                                    <h2>Citizen!</h2>
+                                {% endif %}
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                    <p>Administrator</p>
+                                {% elseif is_granted('ROLE_CALL_OPERATOR') %}
+                                    <p>Call operator</p>
+                                {% elseif is_granted('ROLE_GOV_AGENT') %}
+                                    <p>Government agent</p>
+                                {% else %}
+                                    Anonymous
                                 {% endif %}
                             </div>
                         </div>
@@ -78,13 +86,23 @@
                             <div class="menu_section">
                                 <ul class="nav side-menu">
                                     <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> Dashboard</a></li>
-                                    <li><a><i class="fa fa-edit"></i> Requests <span
-                                                    class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="{{ path('submit-request') }}">Submit</a></li>
-                                            <li><a href="{{ path('manage-request') }}">Manage</a></li>
-                                        </ul>
-                                    </li>
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        <li><a><i class="fa fa-edit"></i> Requests <span
+                                                        class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                                    <li><a href="{{ path('submit-request') }}">Submit</a></li>
+                                                {% endif %}
+                                                <li><a href="{{ path('manage-request') }}">Manage</a></li>
+                                            </ul>
+                                        </li>
+                                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                            <li><a href="{{ path('fos_user_registration_register') }}"><i
+                                                            class="fa fa-user"></i>
+                                                    Register User</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -98,10 +116,8 @@
                                     <span class="fa fa-power-off" aria-hidden="true"></span>
                                 </a>
                             {% else %}
-                                {#<a data-toggle="tooltip" data-placement="top" title="Login" href="{{ path('fos_user_security_login') }}">#}
-                                {#<span class="fa fa-sign-in" aria-hidden="true"></span>#}
-                                {#</a>#}
-                                <a data-toggle="tooltip" data-placement="top" title="Login" href="#">
+                                <a data-toggle="tooltip" data-placement="top" title="Login"
+                                   href="{{ path('fos_user_security_login') }}">
                                     <span class="fa fa-sign-in" aria-hidden="true"></span>
                                 </a>
                             {% endif %}

@@ -1,0 +1,77 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="row">
+    <a href="{{ path('homepage') }}" class="site_title col-md-12">
+        <span class="sr-only">Atlantis CMS</span>
+        <img src="{{ asset('bundles/app/img/logo.svg') }}" class="site_logo" alt="Atlantis Logo">
+    </a>
+</div>
+<h1 class="security-header">CMS Registration</h1>
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register security_form'}}) }}
+        {{ form_row(form._token) }}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="my-account-head">
+            <h2>Account</h2>
+        </div>
+        <div class="row">
+            <fieldset class="form-group col-lg-6">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </fieldset>
+            <fieldset class="form-group col-lg-6">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+                {{ form_errors(form.username) }}
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset class="form-group col-lg-6">
+                {{ form_label(form.plainPassword.first) }}
+                {{ form_widget(form.plainPassword.first) }}
+                {{ form_errors(form.plainPassword.first) }}
+            </fieldset>
+            <fieldset class="form-group col-lg-6">
+                {{ form_label(form.plainPassword.second) }}
+                {{ form_widget(form.plainPassword.second) }}
+                {{ form_errors(form.plainPassword.second) }}
+            </fieldset>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="pers-info-head">
+            <h2>Personnal Informations</h2>
+        </div>
+        <div class="row">
+            <fieldset class="form-group col-lg-6">
+                {{ form_label(form.firstname) }}
+                {{ form_widget(form.firstname) }}
+                {{ form_errors(form.firstname) }}
+            </fieldset>
+            <fieldset class="form-group col-lg-6">
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname) }}
+                {{ form_errors(form.lastname) }}
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset class="form-group col-lg-12">
+                {{ form_label(form.roles) }}
+                {{ form_widget(form.roles) }}
+                {{ form_errors(form.roles) }}
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px">
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-primary pull-right" style="margin: 0">Register</button>
+    </div>
+</div>
+
+{{ form_end(form) }}

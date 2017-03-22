@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Atlantis CMS | {% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+        <link rel="apple-touch-icon" href="{{ asset('bundles/app/img/favicon.png') }}">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('assets/vendors/font-awesome/css/font-awesome.min.css') }}">
+        <!-- Roboto Fontface -->
+        <link rel="stylesheet" href="{{ asset('assets/vendors/roboto-fontface/css/roboto/roboto-fontface.css') }}">
+        <!-- Animate.css -->
+        <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css/animate.min.css') }}">
+
+        {% block stylesheets %}{% endblock %}
+
+        <!-- Custom Theme Style -->
+        <link rel="stylesheet" href="{{ asset('bundles/app/css/custom.min.css') }}">
+    </head>
+    <body class="login">
+        <div class="login_wrapper">
+            <section class="login_content">
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </section>
+        </div>
+
+        <!-- jQuery -->
+        <script src="{{ asset('assets/vendors/jquery/dist/jquery.min.js') }}"></script>
+        {% block javascripts %}{% endblock javascripts %}
+    </body>
+</html>

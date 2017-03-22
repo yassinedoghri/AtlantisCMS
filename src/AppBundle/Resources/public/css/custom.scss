@@ -4107,20 +4107,24 @@ ul.stats-overview li:first-child {
 
 }
 
+h1.security-header {
+  font-weight: 100;
+  text-align: center;
+}
+
+.security_form {
+  .btn {
+    background-color: $primary-color;
+    border: none;
+    color: #fff;
+    border-radius: 0;
+}
+
 .login_form {
   z-index: 22;
-  .pwd-lost {
+  .remember-me {
     color: #fff;
-    margin: 0.7em 0;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-  }
-  h1 {
-    font-weight: 100;
-    text-align: center;
+    vertical-align: middle;
   }
 
   .copyright {
@@ -4131,12 +4135,6 @@ ul.stats-overview li:first-child {
   .form-control {
     margin: 25px 0;
   }
-
-  .btn {
-    background-color: $primary-color;
-    border: none;
-    color: #fff;
-    border-radius: 0;
 
     &:hover {
       background-color: #3966ef;

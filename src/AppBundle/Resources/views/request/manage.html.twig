@@ -47,7 +47,9 @@
                                     <th>Phone</th>
                                     <th>Status</th>
                                     <th style="width: 10%">#Visibility</th>
-                                    <th style="width: 15%">#Edit</th>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <th style="width: 15%">#Edit</th>
+                                    {% endif %}
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,12 +74,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye"></i> Show to public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -100,12 +104,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye-slash"></i> Hide from public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -128,12 +134,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye-slash"></i> Hide from public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -156,12 +164,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye-slash"></i> Hide from public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -184,12 +194,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye-slash"></i> Hide from public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -212,12 +224,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye-slash"></i> Hide from public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -240,12 +254,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye"></i> Show to public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -268,12 +284,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye-slash"></i> Hide from public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>#</td>
@@ -296,12 +314,14 @@
                                         <a href="#" class="btn btn-default btn-xs"><i
                                                     class="fa fa-eye-slash"></i> Hide from public </a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-xs"><i
-                                                    class="fa fa-pencil"></i> Edit </a>
-                                        <a href="#" class="btn btn-danger btn-xs"><i
-                                                    class="fa fa-trash-o"></i> Delete </a>
-                                    </td>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-xs"><i
+                                                        class="fa fa-pencil"></i> Edit </a>
+                                            <a href="#" class="btn btn-danger btn-xs"><i
+                                                        class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             </tbody>
                         </table>

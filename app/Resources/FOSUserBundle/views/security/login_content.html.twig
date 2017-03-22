@@ -1,0 +1,45 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form class="login_form security_form" action="{{ path("fos_user_security_check") }}" method="post">
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+    {% endif %}
+    <div class="row">
+        <a href="{{ path('homepage') }}" class="site_title col-md-12">
+            <span class="sr-only">Atlantis CMS</span>
+            <img src="{{ asset('bundles/app/img/logo.svg') }}" class="site_logo" alt="Atlantis Logo">
+        </a>
+    </div>
+    <h1 class="security-header">CMS Login</h1>
+
+    <div class="form-group input input--chisato">
+        <input class="input__field input__field--chisato" type="text" id="username" name="_username"
+               value="{{ last_username }}"/>
+        <label class="input__label input__label--chisato" for="username">
+						<span class="input__label-content input__label-content--chisato"
+                              data-content="Email">Email</span>
+        </label>
+    </div>
+    <div class="form-group input input--chisato">
+        <input class="input__field input__field--chisato" type="password" id="password" name="_password"/>
+        <label class="input__label input__label--chisato" for="input-14">
+                                <span class="input__label-content input__label-content--chisato"
+                                      data-content="Password">Password</span>
+        </label>
+    </div>
+    <div class="login-footer clearfix">
+        <div class="remember-me pull-left">
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+            <label for="remember_me">Remember me</label>
+        </div>
+        <button class="btn btn-default pull-right" type="submit" id="_submit"
+                name="_submit">Log In</button>
+    </div>
+
+    <div class="clearfix"></div>
+    <p class="copyright">©2017 Atlantis Corp. All Rights Reserved.</p>
+</form>
