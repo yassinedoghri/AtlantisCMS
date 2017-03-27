@@ -14,7 +14,9 @@ Atlantis CMS is a Crisis Management System web app to monitor crisis situations 
 
 These instructions will get you a copy of the project up and running on your local machine for development purposes.
 
-#### 1. Download and Install one of these software bundles:
+#### 1. Download and Install a web server software bundle:
+
+Choose one of these:
 
  - [WAMP](http://www.wampserver.com/) (recommended)
  - [XAMPP](https://www.apachefriends.org/fr/index.html)
@@ -53,20 +55,36 @@ On the root or `static` folder of the project, you can now:
 $ bower install
 ```
 
-- Install npm dependencies
+- Install npm dependencies (optional)
 
 ```sh
 # installs the project dependencies listed in package.json
 $ npm install
 ```
 
-#### 6. To run the Symfony3 website, go to the project root folder with the command line and execute:
- 
+#### 6. Import database structure & data
+
+Go to phpmyadmin and import the structure & data files of the atlantis_cms database.
+
+_**NB.** You'll find the .sql files on Google drive (`database` folder)._
+
+#### 7. Install project assets
+
+Go to the project root folder with the command line and execute:
+
+```sh
+ $ php bin/console assets:install --symlink
+```
+
+#### 8. Run Symfony server
+
+Go to the project root folder with the command line and execute:
+
 ```sh
  $ php bin/console server:run
 ```
 
-_**NB.** You need to [add your PHP installation directory to the %PATH% environment variable](http://stackoverflow.com/a/7307581) beforehand._
+_**NB.** For 7 and 8, you might need to [add your PHP installation directory to the %PATH% environment variable](http://stackoverflow.com/a/7307581) beforehand._
 
 **The server should be running on the default address: `http://127.0.0.1:8000`**
 

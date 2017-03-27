@@ -59,6 +59,20 @@ class Crisis
     /**
      * @var string
      *
+     * @ORM\Column(name="street_number", type="string", length=15, nullable=true)
+     */
+    private $streetNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="street_route", type="string", length=255, nullable=true)
+     */
+    private $streetRoute;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="postal_code", type="string", length=6, nullable=false)
      */
     private $postalCode;
@@ -108,21 +122,21 @@ class Crisis
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="submitted_on", type="date", nullable=false)
+     * @ORM\Column(name="submitted_on", type="datetime", nullable=false)
      */
     private $submittedOn;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="closed_on", type="date", nullable=true)
+     * @ORM\Column(name="closed_on", type="datetime", nullable=true)
      */
     private $closedOn;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="last_modification", type="date", nullable=false)
+     * @ORM\Column(name="last_modification", type="datetime", nullable=false)
      */
     private $lastModification;
 
@@ -138,7 +152,7 @@ class Crisis
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Request", mappedBy="crisis")
      */
-    private $assistanceList;
+    protected $assistanceList;
 
     /**
      * @var \AppBundle\Entity\User
@@ -307,6 +321,54 @@ class Crisis
     public function getAddressLine2()
     {
         return $this->addressLine2;
+    }
+
+    /**
+     * Set streetNumber
+     *
+     * @param string $streetNumber
+     *
+     * @return Crisis
+     */
+    public function setStreetNumber($streetNumber)
+    {
+        $this->streetNumber = $streetNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get streetNumber
+     *
+     * @return string
+     */
+    public function getStreetNumber()
+    {
+        return $this->streetNumber;
+    }
+
+    /**
+     * Set streetRoute
+     *
+     * @param string $streetRoute
+     *
+     * @return Crisis
+     */
+    public function setStreetRoute($streetRoute)
+    {
+        $this->streetRoute = $streetRoute;
+
+        return $this;
+    }
+
+    /**
+     * Get streetRoute
+     *
+     * @return string
+     */
+    public function getStreetRoute()
+    {
+        return $this->streetRoute;
     }
 
     /**
@@ -576,13 +638,13 @@ class Crisis
     /**
      * Add assistanceList
      *
-     * @param \AppBundle\Entity\Request $assistanceList
+     * @param \AppBundle\Entity\Request $assistance
      *
      * @return Crisis
      */
-    public function addAssistanceList(\AppBundle\Entity\Request $assistanceList)
+    public function addAssistanceList(\AppBundle\Entity\Request $assistance)
     {
-        $this->assistanceList[] = $assistanceList;
+        $this->assistanceList[] = $assistance;
 
         return $this;
     }

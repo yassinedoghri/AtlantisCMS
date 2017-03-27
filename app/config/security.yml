@@ -24,6 +24,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/requests/submit, role: [ROLE_CALL_OPERATOR, ROLE_SUPER_ADMIN] }
-        - { path: ^/requests/manage, role: [ROLE_CALL_OPERATOR, ROLE_GOV_AGENT, ROLE_SUPER_ADMIN] }
+        - { path: ^/crisis/submit, role: [ROLE_CALL_OPERATOR, ROLE_SUPER_ADMIN] }
+        - { path: ^/crisis/manage, role: [ROLE_CALL_OPERATOR, ROLE_GOV_AGENT, ROLE_SUPER_ADMIN] }
         - { path: ^/admin/, role: ROLE_SUPER_ADMIN }

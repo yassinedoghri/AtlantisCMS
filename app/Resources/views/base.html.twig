@@ -87,13 +87,13 @@
                                 <ul class="nav side-menu">
                                     <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i> Dashboard</a></li>
                                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                        <li><a><i class="fa fa-edit"></i> Requests <span
+                                        <li><a><i class="fa fa-edit"></i> Crisis <span
                                                         class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                                    <li><a href="{{ path('submit-request') }}">Submit</a></li>
+                                                    <li><a href="{{ path('submit-crisis') }}">Submit Request</a></li>
                                                 {% endif %}
-                                                <li><a href="{{ path('manage-request') }}">Manage</a></li>
+                                                <li><a href="{{ path('manage-crisis') }}">Manage</a></li>
                                             </ul>
                                         </li>
                                         {% if is_granted('ROLE_SUPER_ADMIN') %}

@@ -1,0 +1,277 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/select2/dist/css/select2.min.css') }}">
+{% endblock %}
+
+{% block page_content %}
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Submit Crisis</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Request form</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-6">
+                            {{ form_start(form,  { 'attr': {'class': 'form-horizontal'} }) }}
+                            {{ form_row(form._token) }}
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                                       for="first-name">Crisis category <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.category, {'attr': {'tabindex':'1'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12"
+                                       for="first-name">Contact Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    {{ form_widget(form.contactFirstname, {'attr': {'tabindex':'2'}}) }}
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    {{ form_widget(form.contactLastname, {'attr': {'tabindex':'3'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone-number"
+                                       class="control-label col-md-4 col-sm-4 col-xs-12">Contact Phone
+                                    Number <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.contactPhoneNumber, {'attr': {'tabindex':'4'}}) }}
+                                    <span class="fa fa-phone form-control-feedback right"
+                                          aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Crisis
+                                    Location
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.addressLine1, {'id':'autocomplete', 'attr': {'onFocus': 'geolocate()', 'tabindex':'5'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    {{ form_widget(form.streetNumber, {'id': 'street_number', 'attr': {'tabindex':'6'}}) }}
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    {{ form_widget(form.streetRoute, {'id': 'route','attr': {'tabindex':'7'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.addressLine2, {'attr': {'tabindex':'8'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    {{ form_widget(form.postalCode, {'id': 'postal_code','attr': {'tabindex':'9'}}) }}
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    {{ form_widget(form.city, {'id': 'locality','attr': {'tabindex':'10'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12"></label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.country, {'id': 'country','attr': {'tabindex':'11'}}) }}
+                                </div>
+                            </div>
+                            {{ form_widget(form.latitude, {'id': 'latitude'}) }}
+                            {{ form_widget(form.longitude, {'id': 'longitude'}) }}
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Type(s) of assistance
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.assistanceList, {'attr': {'tabindex':'12'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Message for Authorities</label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.message, {'attr': {'tabindex':'13'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Status
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    {{ form_widget(form.status, {'attr': {'tabindex':'14', 'disabled': 'disabled'}}) }}
+                                    <input type="hidden" name="appbundle_crisis[status]" value="request">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="map" class="col-md-offset-1 col-md-4 hidden-small" style="height: 500px;"></div>
+                        <div class="col-md-12">
+                            <div class="ln_solid"></div>
+                            <div class="form-group text-right">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button class="btn btn-default" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- jquery.inputmask -->
+    <script src="{{ asset('assets/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('assets/vendors/select2/dist/js/select2.full.min.js') }}"></script>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <script type="text/javascript">
+        $("#appbundle_crisis_assistanceList").select2({
+            placeholder: "Select one or multiple types of assistance..."
+        });
+
+        // This example displays an address form, using the autocomplete feature
+        // of the Google Places API to help users fill in the information.
+
+        var placeSearch, autocomplete;
+        var componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+        function initAutocomplete() {
+            // Create the autocomplete object, restricting the search to geographical
+            // location types.
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 1.3553794, lng: 103.86774439999999},
+                zoom: 10
+            });
+
+            autocomplete = new google.maps.places.Autocomplete(
+                (document.getElementById('autocomplete')), {
+                    types: ['geocode'],
+                    componentRestrictions: {country: 'sg'}
+                });
+            autocomplete.bindTo('bounds', map);
+
+            infowindow = new google.maps.InfoWindow();
+            marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
+
+            // When the user selects an address from the dropdown, populate the address
+            // fields in the form.
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
+
+        // [START region_fillform]
+        function fillInAddress() {
+            infowindow.close();
+            marker.setVisible(false);
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+
+            for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+            }
+
+            document.getElementById('latitude').value = place.geometry.location.lat();
+            document.getElementById('longitude').value = place.geometry.location.lng();
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);  // Why 17? Because it looks good.
+            }
+            marker.setIcon(/** @type {google.maps.Icon} */({
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35, 35)
+            }));
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+
+            var address = '';
+            if (place.address_components) {
+                address = [
+                    (place.address_components[0] && place.address_components[0].short_name || ''),
+                    (place.address_components[1] && place.address_components[1].short_name || ''),
+                    (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            infowindow.open(map, marker);
+
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+        }
+        // [END region_fillform]
+
+        // [START region_geolocation]
+        // Bias the autocomplete object to the user's geographical location,
+        // as supplied by the browser's 'navigator.geolocation' object.
+        function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var circle = new google.maps.Circle({
+                        center: geolocation,
+                        radius: position.coords.accuracy
+                    });
+                    autocomplete.setBounds(circle.getBounds());
+                });
+            }
+        }
+        // [END region_geolocation]
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2uw6NAXI2l8MPA6rDrsdQJS3e-zm_44g&signed_in=true&libraries=places&callback=initAutocomplete&language=en_UK"
+            async defer></script>
+{% endblock %}

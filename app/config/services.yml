@@ -12,3 +12,8 @@ services:
         class: AppBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+
+    app.form.crisis:
+        class: AppBundle\Form\CrisisType
+        tags:
+            - { name: form.type, alias: app_crisis_submit }
