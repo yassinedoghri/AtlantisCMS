@@ -35,6 +35,8 @@ These instructions will get you a copy of the project up and running on your loc
  - After installation, use the command line, go to the root of the project and run:
 
 ```sh
+# install php-xml, resolves XmlUtils.php:52 problem
+$ apt install php-xml
 # installs the project dependencies listed in composer.json
 $ composer update
 ```
@@ -49,8 +51,6 @@ On the root or `static` folder of the project, you can now:
 - Install Bower dependencies
 
 ```sh
-# install php-xml, resolves XmlUtils.php:52 problem
-$ apt install php-xml
 # installs the project dependencies listed in bower.json
 $ bower install
 ```
