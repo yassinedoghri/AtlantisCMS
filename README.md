@@ -37,6 +37,8 @@ Choose one of these:
  - After installation, use the command line, go to the root of the project and run:
 
 ```sh
+# install php-xml, resolves XmlUtils.php:52 problem
+$ apt install php-xml
 # installs the project dependencies listed in composer.json
 $ composer update
 ```
