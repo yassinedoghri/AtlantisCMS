@@ -49,6 +49,8 @@ On the root or `static` folder of the project, you can now:
 - Install Bower dependencies
 
 ```sh
+# install php-xml, resolves XmlUtils.php:52 problem
+$ apt install php-xml
 # installs the project dependencies listed in bower.json
 $ bower install
 ```
