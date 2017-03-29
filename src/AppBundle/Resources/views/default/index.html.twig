@@ -61,13 +61,13 @@
                             <div class="col-md-12 col-sm-12 col-xs-6">
                                 <div class="">
                                     <label>
-                                        <input type="checkbox" class="js-switch" checked/> Haze
+                                        <input type="checkbox" class="js-switch" value="1" name="category" checked/> Haze
                                     </label>
                                 </div>
                                 <br/>
                                 <div class="">
                                     <label>
-                                        <input type="checkbox" class="js-switch" checked/> Dengue
+                                        <input type="checkbox" class="js-switch" value="2" name="category"  checked/> Dengue
                                     </label>
                                 </div>
                                 <br/>
@@ -75,13 +75,13 @@
                             <div class="col-md-12 col-sm-12 col-xs-6">
                                 <div class="">
                                     <label>
-                                        <input type="checkbox" class="js-switch" checked/> MRT Incidents
+                                        <input type="checkbox" class="js-switch" value="3" name="category" checked/> MRT Incidents
                                     </label>
                                 </div>
                                 <br/>
                                 <div class="">
                                     <label>
-                                        <input type="checkbox" class="js-switch" checked/> Car Accidents
+                                        <input type="checkbox" class="js-switch" value="4" name="category"  checked/> Car Accidents
                                     </label>
                                 </div>
                             </div>
@@ -571,20 +571,112 @@
     <!-- Custom Theme Scripts -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2uw6NAXI2l8MPA6rDrsdQJS3e-zm_44g&callback=initMap"
             async defer></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
     <script>
-        var map;
+        var map;      
+        var myLatLng;
+        var content;
+        var infowindow;
+        var markersToAdd = [];
+        var g_markers = [];
+        
+        // toggle checkbox onchange
+        $(function() {
+            $('[name="category"]').on('change', filterMarkers);
+        })
+
+        // initialize map
         function initMap() {
-            var myLatLng = {lat: 1.3553794, lng: 103.851959};
+            myLatLng = {lat: 1.3553794, lng: 103.851959};
             map = new google.maps.Map(document.getElementById('map'), {
                 center: myLatLng,
                 zoom: 10
             });
+            
+            // fetch data from database and pass as parameter
+            {% for crisis in data %} 
+                var lat = '{{ crisis.latitude}}';
+                var lng = '{{ crisis.longitude}}';
+                var firstname = '{{ crisis.contactFirstname }}';
+                var lastname = '{{ crisis.contactLastname }}';
+                var phonenumber = '{{ crisis.contactPhoneNumber }}';
+                var addrline1 = '{{ crisis.addressLine1 }}';
+                var addrline2 = '{{ crisis.addressLine2 }}';
+                var streetnumber = '{{ crisis.streetNumber }}';
+                var postalcode = '{{ crisis.postalCode }}';
+                var city = '{{ crisis.city }}';
+                var message = '{{ crisis.message }}';
+                var category = '{{ crisis.category.id }}';
+                
+                markersToAdd = [
+                    [lat, lng, category, firstname, lastname, phonenumber, addrline1, addrline2, streetnumber, postalcode, city, message, category]
+                ];
+                
+                for (i = 0; i < markersToAdd.length; i++) {
+                    addMarker(markersToAdd[i]);
+                }
+            {% endfor %}
 
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: 'Hello World!'
-            });
         }
+        
+        function addMarker(marker) {
+            var categoryString;
+            var newMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(marker[0], marker[1]),
+                animation: google.maps.Animation.DROP,
+                map: map
+            });
+  
+            g_markers.push({markerObj:newMarker, category:marker[2]})
+            
+            // customize map marker
+            if(marker[2] == 1){
+                    newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+                    categoryString = 'Haze Case';
+                }else if(marker[2] == 2){
+                    newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                    categoryString = 'Dengue Case';
+                }else if(marker[2] == 3){
+                   newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+                   categoryString = 'MRT Breakdown Case';
+                }else if(marker[2] == 4){
+                   newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                   categoryString = 'Car Accident Case';
+                }
+
+                // info window content
+                content = '<h5>' + categoryString + '</h5><br/>' 
+                        + '<b>' + marker[6] + " " + marker[7] + '</b><br/>' 
+                        + (marker[10].toUpperCase()) + " " + marker[9] + '<br/><br/>' 
+                        + "Issued by " + marker[3] + " " + marker[4] + " " + marker[5] + '<br/>'; 
+                        //+ "Details - " + marker[11];    
+
+                infowindow = new google.maps.InfoWindow()
+                google.maps.event.addListener(newMarker,'click', (function(newMarker,content,infowindow){ 
+                    return function() {
+                        infowindow.setContent(content);
+                        infowindow.open(map,newMarker);
+                    };
+                })(newMarker,content,infowindow));                 
+        }
+        
+        // function to filter markers by category
+       function filterMarkers() {
+         // get checked categories
+         var checkedCategories = [];
+         
+         $('[name="category"]:checked').each(function(){
+               checkedCategories.push(parseInt($(this).val()));
+         });
+
+         // filter markers
+         $(g_markers).each(function() {
+           this.markerObj.setVisible(
+             checkedCategories.indexOf(parseInt(this.category)) !== -1
+           );
+         });
+       }
+
     </script>
 {% endblock %}
