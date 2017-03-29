@@ -38,7 +38,7 @@ class Crisis
     /**
      * @var string
      *
-     * @ORM\Column(name="contact_phone_number", type="string", length=12, nullable=false)
+     * @ORM\Column(name="contact_phone_number", type="string", length=15, nullable=false)
      */
     private $contactPhoneNumber;
 
@@ -108,14 +108,14 @@ class Crisis
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="blob", length=65535, nullable=true)
+     * @ORM\Column(name="message", type="text", length=65535, nullable=true)
      */
     private $message;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=10, nullable=false)
+     * @ORM\Column(name="status", type="string", length=32, nullable=false)
      */
     private $status;
 

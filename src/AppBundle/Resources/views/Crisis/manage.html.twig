@@ -34,303 +34,115 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        {% if crises %}
+                            <p>You can go through the crisis requests to edit or delete them.</p>
 
-                        <p>You can go through the assistance requests to modify or delete them.</p>
+                            <!-- start request list -->
+                            <table class="table table-striped requests">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%">#</th>
+                                        <th>Crisis Category</th>
+                                        <th style="width: 20%">Types of Assistance</th>
+                                        <th>Address</th>
+                                        <th>Contact</th>
+                                        <th>Status</th>
+                                        <th>#Visibility</th>
+                                        {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                            <th>#Edit</th>
+                                        {% endif %}
+                                        <th>Last Modified</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for crisis in crises %}
+                                        <tr>
+                                            <td>{{ crisis.id }}</td>
+                                            <td>
+                                                <a>{% if crisis.message %}
+                                                        <i data-toggle="tooltip" data-placement="bottom"
+                                                           title="{{ crisis.message }}"
+                                                           class="fa fa-comment-o"></i>
+                                                    {% endif %}
+                                                    {{ crisis.category.wording }}</a>
+                                                <br/>
+                                                <small>Submitted {{ crisis.submittedOn|date("d.m.Y H:i:s") }}</small>
+                                            </td>
+                                            <td>{{ crisis.assistanceList|join(', ') }}</td>
+                                            <td>
+                                                <p>{{ crisis.addressLine1 }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="margin: 0">{{ crisis.contactFirstname ~ ' ' ~ crisis.contactLastname }}</p>
+                                                <small>{{ crisis.contactPhoneNumber }}</small>
+                                            </td>
+                                            <td>
+                                                <button type="button"
+                                                        class="btn{% if crisis.status == 'request' %} btn-info {% elseif crisis.status == 'in_progress' %} btn-success {% else %} btn-danger {% endif %}
+                                                     btn-xs">{{ crisis.status }}</button>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    {% if crisis.showToPublic %}
+                                                        Visible <a data-toggle="tooltip" data-placement="left"
+                                                                   title="Hide from public?"
+                                                                   href="{{ path('toggle-show-crisis', {'id': crisis.id}) }}"
+                                                                   class="btn btn-default btn-xs"><i
+                                                                class="fa fa-eye-slash"></i></a>
+                                                    {% else %}
+                                                        Hidden <a data-toggle="tooltip" data-placement="left"
+                                                                  title="Show to public?"
+                                                                  href="{{ path('toggle-show-crisis', {'id': crisis.id}) }}"
+                                                                  class="btn btn-default btn-xs"><i
+                                                                class="fa fa-eye"></i></a>
+                                                    {% endif %}
+                                                </p>
+                                            </td>
+                                            {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                                <td>
+                                                    <a href="{{ path('update-crisis', {'id': crisis.id}) }}"
+                                                       class="btn btn-info btn-xs"><i
+                                                                class="fa fa-pencil"></i> Edit </a>
+                                                    <a href="{{ path('delete-crisis', {'id': crisis.id}) }}"
+                                                       class="btn btn-danger btn-xs"
+                                                       onclick="return confirm('Are you sure?');"><i
+                                                                class="fa fa-trash-o"></i> Delete </a>
+                                                </td>
+                                            {% endif %}
+                                            <td>
+                                                <small>{{ crisis.lastModification|date("d.m.Y H:i:s") }}</small>
+                                            </td>
+                                        </tr>
 
-                        <!-- start request list -->
-                        <table class="table table-striped requests">
-                            <thead>
-                                <tr>
-                                    <th style="width: 1%">#</th>
-                                    <th style="width: 20%">Assistance Type</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Status</th>
-                                    <th style="width: 10%">#Visibility</th>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <th style="width: 15%">#Edit</th>
-                                    {% endif %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Emergency Ambulance</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-info btn-xs">In Progress
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye"></i> Show to public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Fire-Fighting</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-info btn-xs">In Progress
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye-slash"></i> Hide from public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Gas Leak Control</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs">Success
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye-slash"></i> Hide from public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Rescue and Evacuation</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs">Success
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye-slash"></i> Hide from public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Rescue and Evacuation, Fire-Fighting</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs">Success
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye-slash"></i> Hide from public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Emergency Ambulance</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs">Success
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye-slash"></i> Hide from public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Gas Leak Control</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs">Success
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye"></i> Show to public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Emergency Ambulance</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs">Success
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye-slash"></i> Hide from public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>
-                                        <a>Fire-Fighting</a>
-                                        <br/>
-                                        <small>Created 01.01.2015</small>
-                                    </td>
-                                    <td>
-                                        <p>47, Bond Street 674852. Singapore.</p>
-                                    </td>
-                                    <td>
-                                        <p>(+65) 8856 4887</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs">Success
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-default btn-xs"><i
-                                                    class="fa fa-eye-slash"></i> Hide from public </a>
-                                    </td>
-                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-xs"><i
-                                                        class="fa fa-pencil"></i> Edit </a>
-                                            <a href="#" class="btn btn-danger btn-xs"><i
-                                                        class="fa fa-trash-o"></i> Delete </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- end request list -->
-
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- end request list -->
+                        {% else %}
+                            <div class="alert alert-warning" role="alert">
+                                <strong>No crisis found!</strong>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /page content -->
+
+{% endblock %}
+
+{% block custom_javascripts %}
+    {% for notice in app.session.flashbag.get('notice') %}
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                new PNotify({
+                    title: '{{ notice.title }}',
+                    text: '{{ notice.text }}',
+                    type: '{{ notice.type }}',
+                    styling: 'bootstrap3'
+                });
+            });
+        </script>
+    {% endfor %}
 {% endblock %}

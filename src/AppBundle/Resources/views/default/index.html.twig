@@ -574,13 +574,13 @@
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     <script>
-        var map;      
+        var map;
         var myLatLng;
         var content;
         var infowindow;
         var markersToAdd = [];
         var g_markers = [];
-        
+
         // toggle checkbox onchange
         $(function() {
             $('[name="category"]').on('change', filterMarkers);
@@ -593,9 +593,9 @@
                 center: myLatLng,
                 zoom: 10
             });
-            
+
             // fetch data from database and pass as parameter
-            {% for crisis in data %} 
+            {% for crisis in data %}
                 var lat = '{{ crisis.latitude}}';
                 var lng = '{{ crisis.longitude}}';
                 var firstname = '{{ crisis.contactFirstname }}';
@@ -608,18 +608,18 @@
                 var city = '{{ crisis.city }}';
                 var message = '{{ crisis.message }}';
                 var category = '{{ crisis.category.id }}';
-                
+
                 markersToAdd = [
                     [lat, lng, category, firstname, lastname, phonenumber, addrline1, addrline2, streetnumber, postalcode, city, message, category]
                 ];
-                
+
                 for (i = 0; i < markersToAdd.length; i++) {
                     addMarker(markersToAdd[i]);
                 }
             {% endfor %}
 
         }
-        
+
         function addMarker(marker) {
             var categoryString;
             var newMarker = new google.maps.Marker({
@@ -627,9 +627,9 @@
                 animation: google.maps.Animation.DROP,
                 map: map
             });
-  
+
             g_markers.push({markerObj:newMarker, category:marker[2]})
-            
+
             // customize map marker
             if(marker[2] == 1){
                     newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
@@ -646,26 +646,26 @@
                 }
 
                 // info window content
-                content = '<h5>' + categoryString + '</h5><br/>' 
-                        + '<b>' + marker[6] + " " + marker[7] + '</b><br/>' 
-                        + (marker[10].toUpperCase()) + " " + marker[9] + '<br/><br/>' 
-                        + "Issued by " + marker[3] + " " + marker[4] + " " + marker[5] + '<br/>'; 
-                        //+ "Details - " + marker[11];    
+                content = '<h5>' + categoryString + '</h5><br/>'
+                        + '<b>' + marker[6] + " " + marker[7] + '</b><br/>'
+                        + (marker[10].toUpperCase()) + " " + marker[9] + '<br/><br/>'
+                        + "Issued by " + marker[3] + " " + marker[4] + " " + marker[5] + '<br/>';
+                        //+ "Details - " + marker[11];
 
                 infowindow = new google.maps.InfoWindow()
-                google.maps.event.addListener(newMarker,'click', (function(newMarker,content,infowindow){ 
+                google.maps.event.addListener(newMarker,'click', (function(newMarker,content,infowindow){
                     return function() {
                         infowindow.setContent(content);
                         infowindow.open(map,newMarker);
                     };
-                })(newMarker,content,infowindow));                 
+                })(newMarker,content,infowindow));
         }
-        
+
         // function to filter markers by category
        function filterMarkers() {
          // get checked categories
          var checkedCategories = [];
-         
+
          $('[name="category"]:checked').each(function(){
                checkedCategories.push(parseInt($(this).val()));
          });
