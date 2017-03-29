@@ -17,9 +17,6 @@ class DefaultController extends Controller
     {
         // get all crisis
         $data = $this->getDoctrine()->getManager()->getRepository('AppBundle:Crisis')->findAll();
-        if(!$data){
-            throw $this->createNotFoundException('No crisis found.');
-        }
         dump($data);
         return array('data' => $data);
     }
