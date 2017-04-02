@@ -59,28 +59,28 @@
                 hazecounter = 1, denguecounter = 1, firecounter = 1, accidentcounter = 1;
                 if (crisislist[i].category == 1) {
                     if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
-                        hazelabel.push(crisislist[i].date);
+                        hazelabel.push(formatDate(crisislist[i].date));
                     } else {
                         hazecounter++;
                     }
                     hazedata.push(hazecounter);
                 } else if (crisislist[i].category == 2) {
                     if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
-                        denguelabel.push(crisislist[i].date);
+                        denguelabel.push(formatDate(crisislist[i].date));
                     } else {
                         denguecounter++;
                     }
                     denguedata.push(denguecounter);
                 } else if (crisislist[i].category == 3) {
                     if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
-                        firelabel.push(crisislist[i].date);
+                        firelabel.push(formatDate(crisislist[i].date));
                     } else {
                         firecounter++;
                     }
                     firedata.push(firecounter);
                 } else if (crisislist[i].category == 4) {
                     if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
-                        accidentlabel.push(crisislist[i].date);
+                        accidentlabel.push(formatDate(crisislist[i].date));
                     } else {
                         accidentcounter++;
                     }
@@ -109,7 +109,15 @@
                         yAxes: [{
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Total Cases'
+                                    labelString: 'Total Case'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function (value) {
+                                        if (value % 1 === 0) {
+                                            return value;
+                                        }
+                                    }
                                 }
                             }]
                     }
@@ -135,7 +143,15 @@
                         yAxes: [{
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Total Cases'
+                                    labelString: 'Total Case'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function (value) {
+                                        if (value % 1 === 0) {
+                                            return value;
+                                        }
+                                    }
                                 }
                             }]
                     }
@@ -161,7 +177,15 @@
                         yAxes: [{
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Total Cases'
+                                    labelString: 'Total Case'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function (value) {
+                                        if (value % 1 === 0) {
+                                            return value;
+                                        }
+                                    }
                                 }
                             }]
                     }
@@ -187,12 +211,68 @@
                         yAxes: [{
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Total Cases'
+                                    labelString: 'Total Case'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function (value) {
+                                        if (value % 1 === 0) {
+                                            return value;
+                                        }
+                                    }
                                 }
                             }]
                     }
                 }
-            });        
+            });
+        }
+
+        function formatDate(input) {
+            console.log(input);
+            var split = input.split('-');
+            var day = split[0];
+            var month = +split[1];
+            var monthstr;
+
+            switch (month) {
+                case 1:
+                    monthstr = 'January';
+                    break;
+                case 2:
+                    monthstr = 'February';
+                    break;
+                case 3:
+                    monthstr = 'March';
+                    break;
+                case 4:
+                    monthstr = 'April';
+                    break;
+                case 5:
+                    monthstr = 'May';
+                    break;
+                case 6:
+                    monthstr = 'June';
+                    break;
+                case 7:
+                    monthstr = 'July';
+                    break;
+                case 8:
+                    monthstr = 'August';
+                    break;
+                case 9:
+                    monthstr = 'September';
+                    break;
+                case 10:
+                    monthstr = 'October';
+                    break;
+                case 11:
+                    monthstr = 'November';
+                    break;
+                case 12:
+                    monthstr = 'December';
+                    break;
+            }
+            return day + ' ' + monthstr;
         }
     </script>
 {% endblock %}

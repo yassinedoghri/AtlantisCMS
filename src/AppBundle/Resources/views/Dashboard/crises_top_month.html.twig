@@ -26,49 +26,49 @@
                 <div class="dashboard-widget-content">
                     <div style="width: 100%;">
                         <div class="leftbox">
-                            <p class="leftbox_text">Haze Cases</p>
+                            <p class="leftbox_text" style="color:#E74C3C;">Haze |</p>
                         </div>
                         <div class="rightbox" >
-                            <p id="hazemonth" class="rightbox_text" style="color:#E74C3C;"></p>
+                            <p id="hazemonth" class="rightbox_text"></p>
+                            <p id="hazecase" style=" font-size: 12px; text-align:left; margin: 0px; margin-bottom:20px;"></p>
                         </div>
                     </div>
-                    <p id="hazecase" style="color:#E74C3C; font-size: 14px;text-align:center;margin: 0px;margin-bottom:10px;"></p>
                     <div style="clear:both"></div>
 
                     <!-- Dengue -->
                     <div style="width: 100%;">
                         <div class="leftbox">
-                            <p class="leftbox_text">Dengue Cases</p>
+                            <p class="leftbox_text" style="color:#3498DB;">Dengue |</p>
                         </div>
                         <div class="rightbox">
-                            <p id="denguemonth" class="rightbox_text" style="color:#3498DB;" ></p>
+                            <p id="denguemonth" class="rightbox_text" ></p>
+                            <p id="denguecase" style="font-size: 12px; text-align:left; margin: 0px; margin-bottom:20px;"></p>
                         </div>
                     </div>
-                    <p id="denguecase" style="color:#3498DB; font-size: 14px;text-align:center;margin: 0px;margin-bottom:10px;"></p>
                     <div style="clear:both"></div>
 
                     <!-- Fire -->
                     <div style="width: 100%;">
                         <div class="leftbox">
-                            <p class="leftbox_text">Fire Incidents</p>
+                            <p class="leftbox_text" style="color:#9B59B6;">Fire |</p>
                         </div>
                         <div class="rightbox">
-                            <p id="firemonth" class="rightbox_text" style="color:#9B59B6;"></p>
+                            <p id="firemonth" class="rightbox_text"></p>
+                            <p id="firecase" style="font-size: 12px; text-align:left; margin: 0px; margin-bottom:20px;"></p>
                         </div>
                     </div>
-                    <p id="firecase" style="color:#9B59B6; font-size: 14px;text-align:center;margin: 0px;margin-bottom:10px;"></p>
                     <div style="clear:both"></div>
 
                     <!-- Car Accident -->
                     <div style="width: 100%;">
                         <div class="leftbox">
-                            <p class="leftbox_text">Car Accidents</p>
+                            <p class="leftbox_text" style="color:#1ABB9C;">Accident |</p>
                         </div>
                         <div class="rightbox">
-                            <p id="accidentmonth" class="rightbox_text" style="color:#1ABB9C;"></p>
+                            <p id="accidentmonth" class="rightbox_text"></p>
+                            <p id="accidentcase" style="font-size: 12px; text-align:left; margin: 0px; margin-bottom:20px;"></p>
                         </div>
-                    </div>
-                    <p id="accidentcase" style="color:#1ABB9C; font-size: 14px;text-align:center;margin: 0px;margin-bottom:10px;"></p>
+                    </div>  
                     <div style="clear:both"></div>
 
                 </div>
@@ -108,10 +108,10 @@
             accidentmonth++;
             document.getElementById('accidentmonth').innerHTML = formatMonth(accidentmonth);
 
-            document.getElementById('hazecase').innerHTML = '<b>' + hazecase + '</b> haze case(s)';
-            document.getElementById('denguecase').innerHTML = '<b>' + denguecase + '</b> dengue cases(s)';
-            document.getElementById('firecase').innerHTML = '<b>' + firecase + '</b> fire incident(s)';
-            document.getElementById('accidentcase').innerHTML = '<b>' + accidentcase + '</b> car accident(s)';
+            document.getElementById('hazecase').innerHTML = hazecase + ' case(s)';
+            document.getElementById('denguecase').innerHTML = denguecase + ' case(s)';
+            document.getElementById('firecase').innerHTML = firecase + ' case(s)';
+            document.getElementById('accidentcase').innerHTML = accidentcase + ' case(s)';
         }
 
         function findLargestValue(crisislist) {
