@@ -1,0 +1,113 @@
+{% block page_content %}
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel tile fixed_height_320">
+            <div class="x_title">
+                <h2>Yearly Crises Summary</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <h5 style="text-align: center;margin-top:0px;">Crises Summary for 2017</h5>
+                <canvas id="myRadarChart" style="width: 100%; height: auto;"></canvas>
+                <div id="radar-legend" class="chart-legend"></div>
+            </div>
+        </div>
+    </div>    
+{% endblock %}    
+
+{% block custom_javascripts %}
+    <!-- Custom Theme Scripts -->
+    <script>
+        function drawRadarChart(crisislist) {
+            var hazemonth = [], hazedata = [], hazecounter = 0;
+            var denguemonth = [], denguedata = [], denguecounter = 0;
+            var firemonth = [], firedata = [], firecounter = 0;
+            var accidentmonth = [], accidentdata = [], accidentcounter = 0;
+
+            // data mapping according to months
+            for (var month = 1; month <= 12; month++) {
+                hazemonth.push(month);
+                denguemonth.push(month);
+                firemonth.push(month);
+                accidentmonth.push(month);
+
+                hazecounter = 0;
+                denguecounter = 0;
+                firecounter = 0;
+                accidentcounter = 0;
+
+                // loop thru the list, for each category, increment counter if months equals, otherwise push 0 to data list for the current month
+                for (var i = 0; i < crisislist.length; i++) {
+                    if (crisislist[i].category == 1) {
+                        if (month == crisislist[i].month) {
+                            hazecounter++;
+                        }
+                    } else if (crisislist[i].category == 2) {
+                        if (month == crisislist[i].month) {
+                            denguecounter++;
+                        }
+                    } else if (crisislist[i].category == 3) {
+                        if (month == crisislist[i].month) {
+                            firecounter++;
+                        }
+                    } else if (crisislist[i].category == 4) {
+                        if (month == crisislist[i].month) {
+                            accidentcounter++;
+                        }
+                    }
+                }
+                hazedata.push(hazecounter);
+                denguedata.push(denguecounter);
+                firedata.push(firecounter);
+                accidentdata.push(accidentcounter);
+            }
+
+            var ctx = document.getElementById("myRadarChart");
+            var myChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
+                    datasets: [{
+                            label: 'Haze Cases',
+                            backgroundColor: "rgba(231,76,60,0.4)",
+                            borderColor: "rgba(231,76,60,1)",
+                            data: hazedata
+                        }, {
+                            label: 'Dengue Cases',
+                            backgroundColor: "rgba(52,152,219,0.4)",
+                            borderColor: "rgba(52,152,219,1)",
+                            data: denguedata
+                        }, {
+                            label: 'Fire Incident',
+                            backgroundColor: "rgba(155,89,182,0.4)",
+                            borderColor: "rgba(155,89,182,1)",
+                            data: firedata
+                        }, {
+                            label: 'Car Accident',
+                            backgroundColor: "rgba(26,187,156,0.4)",
+                            borderColor: "rgba(26,187,156,1)",
+                            data: accidentdata
+                        }]
+                }
+            });
+            document.getElementById('radar-legend').innerHTML = myChart.generateLegend();
+            hotPeriodOverview(hazedata, denguedata, firedata, accidentdata);
+        }
+
+    </script>
+{% endblock %}
