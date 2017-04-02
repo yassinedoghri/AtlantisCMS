@@ -1,0 +1,194 @@
+{% block page_content %}
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel tile fixed_height_320 overflow_hidden">
+            <div class="x_title">
+                <h2>Monthly Crises Summary</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <h5 style="text-align: center;margin-top:0px;">Crises Summary for April</h5>
+                <canvas id="myPieChart" style="width: 100%; height: auto;"></canvas>
+                <div id="pie-legend" class="chart-legend"></div>
+            </div>
+        </div>
+    </div>    
+{% endblock %}
+
+{% block custom_javascripts %}
+    <!-- Custom Theme Scripts -->
+    <script>
+        function drawPieChart(crisislist) {
+            var totalhaze = 0, totaldengue = 0, totalfire = 0, totalaccident = 0;
+            
+            var d = new Date();
+            var currentMonth = d.getMonth() + 1;
+            
+            for (var i = 0; i < crisislist.length; i++) {
+                if(crisislist[i].month == currentMonth){
+                    if (crisislist[i].category == 1) {
+                        totalhaze++;
+                    } else if (crisislist[i].category == 2) {
+                        totaldengue++;
+                    } else if (crisislist[i].category == 3) {
+                        totalfire++;
+                    } else if (crisislist[i].category == 4) {
+                        totalaccident++;
+                    }
+                }
+            }
+
+            // code to show percentage on doughnut chart starts here
+            Chart.defaults.doughnutLabels = Chart.helpers.clone(Chart.defaults.doughnut);
+            var helpers = Chart.helpers;
+            var defaults = Chart.defaults;
+
+            Chart.controllers.doughnutLabels = Chart.controllers.doughnut.extend({
+                updateElement: function (arc, index, reset) {
+                    var _this = this;
+                    var chart = _this.chart,
+                            chartArea = chart.chartArea,
+                            opts = chart.options,
+                            animationOpts = opts.animation,
+                            arcOpts = opts.elements.arc,
+                            centerX = (chartArea.left + chartArea.right) / 2,
+                            centerY = (chartArea.top + chartArea.bottom) / 2,
+                            startAngle = opts.rotation, // non reset case handled later
+                            endAngle = opts.rotation, // non reset case handled later
+                            dataset = _this.getDataset(),
+                            circumference = reset && animationOpts.animateRotate ? 0 : arc.hidden ? 0 : _this.calculateCircumference(dataset.data[index]) * (opts.circumference / (2.0 * Math.PI)),
+                            innerRadius = reset && animationOpts.animateScale ? 0 : _this.innerRadius,
+                            outerRadius = reset && animationOpts.animateScale ? 0 : _this.outerRadius,
+                            custom = arc.custom || {},
+                            valueAtIndexOrDefault = helpers.getValueAtIndexOrDefault;
+
+                    helpers.extend(arc, {
+                        // Utility
+                        _datasetIndex: _this.index,
+                        _index: index,
+
+                        // Desired view properties
+                        _model: {
+                            x: centerX + chart.offsetX,
+                            y: centerY + chart.offsetY,
+                            startAngle: startAngle,
+                            endAngle: endAngle,
+                            circumference: circumference,
+                            outerRadius: outerRadius,
+                            innerRadius: innerRadius,
+                            label: valueAtIndexOrDefault(dataset.label, index, chart.data.labels[index])
+                        },
+
+                        draw: function () {
+                            var ctx = this._chart.ctx,
+                                    vm = this._view,
+                                    sA = vm.startAngle,
+                                    eA = vm.endAngle,
+                                    opts = this._chart.config.options;
+
+                            var labelPos = this.tooltipPosition();
+                            var segmentLabel = vm.circumference / opts.circumference * 100;
+
+                            ctx.beginPath();
+
+                            ctx.arc(vm.x, vm.y, vm.outerRadius, sA, eA);
+                            ctx.arc(vm.x, vm.y, vm.innerRadius, eA, sA, true);
+
+                            ctx.closePath();
+                            ctx.strokeStyle = vm.borderColor;
+                            ctx.lineWidth = vm.borderWidth;
+
+                            ctx.fillStyle = vm.backgroundColor;
+
+                            ctx.fill();
+                            ctx.lineJoin = 'bevel';
+
+                            if (vm.borderWidth) {
+                                ctx.stroke();
+                            }
+
+                            if (vm.circumference > 0.15) { // Trying to hide label when it doesn't fit in segment
+                                ctx.beginPath();
+                                ctx.font = helpers.fontString(opts.defaultFontSize, opts.defaultFontStyle, opts.defaultFontFamily);
+                                ctx.fillStyle = "#fff";
+                                ctx.textBaseline = "top";
+                                ctx.textAlign = "center";
+
+                                // Round percentage in a way that it always adds up to 100%
+                                ctx.fillText(segmentLabel.toFixed(0) + "%", labelPos.x, labelPos.y);
+                            }
+                        }
+                    });
+
+                    var model = arc._model;
+                    model.backgroundColor = custom.backgroundColor ? custom.backgroundColor : valueAtIndexOrDefault(dataset.backgroundColor, index, arcOpts.backgroundColor);
+                    model.hoverBackgroundColor = custom.hoverBackgroundColor ? custom.hoverBackgroundColor : valueAtIndexOrDefault(dataset.hoverBackgroundColor, index, arcOpts.hoverBackgroundColor);
+                    model.borderWidth = custom.borderWidth ? custom.borderWidth : valueAtIndexOrDefault(dataset.borderWidth, index, arcOpts.borderWidth);
+                    model.borderColor = custom.borderColor ? custom.borderColor : valueAtIndexOrDefault(dataset.borderColor, index, arcOpts.borderColor);
+
+                    // Set correct angles if not resetting
+                    if (!reset || !animationOpts.animateRotate) {
+                        if (index === 0) {
+                            model.startAngle = opts.rotation;
+                        } else {
+                            model.startAngle = _this.getMeta().data[index - 1]._model.endAngle;
+                        }
+
+                        model.endAngle = model.startAngle + model.circumference;
+                    }
+                    arc.pivot();
+                }
+            });
+            // code to show percentage on doughnut chart ends here
+
+            var config = {
+                type: 'doughnutLabels',
+                data: {
+                    datasets: [{
+                            data: [totalhaze, totaldengue, totalfire, totalaccident],
+                            backgroundColor: [
+                                "#E74C3C",
+                                "#3498DB",
+                                "#9B59B6",
+                                "#1ABB9C"
+                            ],
+                            label: 'Dataset 1'
+                        }],
+                    labels: [
+                        "Haze Cases", "Dengue Cases", "Fire Incident", "Car Accident"
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            };
+
+            var ctx = document.getElementById("myPieChart").getContext("2d");
+            var myChart = new Chart(ctx, config);
+
+            document.getElementById('pie-legend').innerHTML = myChart.generateLegend();
+        }
+    </script>
+{% endblock %}

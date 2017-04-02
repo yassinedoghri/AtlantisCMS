@@ -1,0 +1,186 @@
+
+{% block page_content %}
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Crises Timeline Summary
+
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <h5 style="text-align: center;margin-top:0px;">Haze Crises Timeline</h5>
+                <canvas id="hazeLineChart" height="40px" style="width: 100%; height: auto;"></canvas>
+                <h5 style="text-align: center;margin-top:20px;">Dengue Crises Timeline</h5>
+                <canvas id="dengueLineChart" height="40px" style="width: 100%; height: auto;"></canvas>
+                <h5 style="text-align: center;margin-top:20px;">Fire Crises Timeline</h5>
+                <canvas id="fireLineChart" height="40px" style="width: 100%; height: auto;"></canvas>
+                <h5 style="text-align: center;margin-top:20px;">Car Accident Crises Timeline</h5>
+                <canvas id="accidentLineChart" height="40px" style="width: 100%; height: auto;"></canvas>
+                <div id="line-legend" class="chart-legend"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <!-- Custom Theme Scripts -->
+    <script>
+        function drawLineChart(crisislist) {
+            var hazelabel = [], denguelabel = [], firelabel = [], accidentlabel = [];
+            var hazedata = [], denguedata = [], firedata = [], accidentdata = [];
+            var hazecounter = 0, denguecounter = 0, firecounter = 0, accidentcounter = 0;
+
+            // sort date in ascending order
+            crisislist.sort(function (a, b) {
+                a = a.date.split('-').reverse().join('');
+                b = b.date.split('-').reverse().join('');
+                return a > b ? 1 : a < b ? -1 : 0;
+            });
+
+            // data mapping based on submission date for each crises
+            for (var i = 0; i < crisislist.length; i++) {
+                hazecounter = 1, denguecounter = 1, firecounter = 1, accidentcounter = 1;
+                if (crisislist[i].category == 1) {
+                    if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
+                        hazelabel.push(crisislist[i].date);
+                    } else {
+                        hazecounter++;
+                    }
+                    hazedata.push(hazecounter);
+                } else if (crisislist[i].category == 2) {
+                    if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
+                        denguelabel.push(crisislist[i].date);
+                    } else {
+                        denguecounter++;
+                    }
+                    denguedata.push(denguecounter);
+                } else if (crisislist[i].category == 3) {
+                    if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
+                        firelabel.push(crisislist[i].date);
+                    } else {
+                        firecounter++;
+                    }
+                    firedata.push(firecounter);
+                } else if (crisislist[i].category == 4) {
+                    if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
+                        accidentlabel.push(crisislist[i].date);
+                    } else {
+                        accidentcounter++;
+                    }
+                    accidentdata.push(accidentcounter);
+                }
+            }
+
+            // charts plotting
+            var ctx = document.getElementById("hazeLineChart");
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: hazelabel,
+                    datasets: [{
+                            label: 'Haze Cases',
+                            backgroundColor: "rgba(231,76,60,0.4)",
+                            borderColor: "rgba(231,76,60,1)",
+                            data: hazedata
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Total Cases'
+                                }
+                            }]
+                    }
+                }
+            });
+            var ctx1 = document.getElementById("dengueLineChart");
+            var myChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: denguelabel,
+                    datasets: [{
+                            label: 'Dengue Cases',
+                            backgroundColor: "rgba(52,152,219,0.4)",
+                            borderColor: "rgba(52,152,219,1)",
+                            data: denguedata
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Total Cases'
+                                }
+                            }]
+                    }
+                }
+            });
+            var ctx2 = document.getElementById("fireLineChart");
+            var myChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: firelabel,
+                    datasets: [{
+                            label: 'Fire Incident',
+                            backgroundColor: "rgba(155,89,182,0.4)",
+                            borderColor: "rgba(155,89,182,1)",
+                            data: firedata
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Total Cases'
+                                }
+                            }]
+                    }
+                }
+            });
+            var ctx3 = document.getElementById("accidentLineChart");
+            var myChart = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: accidentlabel,
+                    datasets: [{
+                            label: 'Car Accident',
+                            backgroundColor: "rgba(26,187,156,0.4)",
+                            borderColor: "rgba(26,187,156,1)",
+                            data: accidentdata
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Total Cases'
+                                }
+                            }]
+                    }
+                }
+            });        
+        }
+    </script>
+{% endblock %}
