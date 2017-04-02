@@ -72,10 +72,10 @@
                                 <label class="control-label col-md-4 col-sm-4 col-xs-12">
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                    {{ form_widget(form.streetNumber, {'id': 'street_number', 'attr': {'tabindex':'6', 'disabled': 'disabled'}}) }}
+                                    {{ form_widget(form.streetNumber, {'id': 'street_number', 'attr': {'tabindex':'6'}}) }}
                                 </div>
                                 <div class="col-md-5 col-sm-5 col-xs-12">
-                                    {{ form_widget(form.streetRoute, {'id': 'route','attr': {'tabindex':'7', 'disabled': 'disabled'}}) }}
+                                    {{ form_widget(form.streetRoute, {'id': 'route','attr': {'tabindex':'7'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -89,16 +89,16 @@
                                 <label class="control-label col-md-4 col-sm-4 col-xs-12">
                                 </label>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                    {{ form_widget(form.postalCode, {'id': 'postal_code','attr': {'tabindex':'9', 'disabled': 'disabled'}}) }}
+                                    {{ form_widget(form.postalCode, {'id': 'postal_code','attr': {'tabindex':'9'}}) }}
                                 </div>
                                 <div class="col-md-5 col-sm-5 col-xs-12">
-                                    {{ form_widget(form.city, {'id': 'locality','attr': {'tabindex':'10', 'disabled': 'disabled'}}) }}
+                                    {{ form_widget(form.city, {'id': 'locality','attr': {'tabindex':'10'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-4 col-xs-12"></label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                    {{ form_widget(form.country, {'id': 'country','attr': {'tabindex':'11', 'disabled': 'disabled'}}) }}
+                                    {{ form_widget(form.country, {'id': 'country','attr': {'tabindex':'11'}}) }}
                                 </div>
                             </div>
                             {{ form_widget(form.latitude, {'id': 'latitude'}) }}
@@ -122,8 +122,7 @@
                                     <span class="required">*</span>
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                    {{ form_widget(form.status, {'data': 'request', 'attr': {'tabindex':'14', 'disabled': 'disabled'}}) }}
-                                    <input type="hidden" name="appbundle_crisis[status]" value="request">
+                                    {{ form_widget(form.status, {'attr': {'tabindex':'14'}}) }}
                                 </div>
                             </div>
                         </div>
@@ -133,7 +132,7 @@
                             <div class="form-group text-right">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                     <button class="btn btn-default" type="reset">Reset</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-success" id="update-btn" disabled="disabled">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -154,10 +153,15 @@
 {% block custom_javascripts %}
     <script type="text/javascript">
         var selectedCrisis = $('#appbundle_crisis_category');
+        var selectedAssist = [];
+        {% for sa in selectedAssistance %}
+        selectedAssist.push({{ sa.id }});
+        {% endfor %}
 
-        $("#appbundle_crisis_assistanceList").select2({
+        var multiSelect = $("#appbundle_crisis_assistanceList").select2({
             placeholder: "Select one or multiple types of assistance..."
         });
+        multiSelect.val(selectedAssist).trigger("change");
 
         // This example displays an address form, using the autocomplete feature
         // of the Google Places API to help users fill in the information.
@@ -171,12 +175,14 @@
             postal_code: 'short_name'
         };
 
+        myLatLng = {lat: {{ form.vars.value.latitude }}, lng: {{ form.vars.value.longitude }}};
+
         function initAutocomplete() {
             // Create the autocomplete object, restricting the search to geographical
             // location types.
             map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 1.3553794, lng: 103.86774439999999},
-                zoom: 10
+                zoom: 17,
+                center: myLatLng
             });
 
             autocomplete = new google.maps.places.Autocomplete(
@@ -191,6 +197,13 @@
                 map: map,
                 anchorPoint: new google.maps.Point(0, -29)
             });
+
+            setMapMarker();
+            marker.setPosition(myLatLng);
+            marker.setVisible(true);
+
+            setInfoWindow('{{ form.vars.value.streetNumber ~ ' ' ~ form.vars.value.streetRoute }}', '{{ form.vars.value.addressLine1 }}');
+            infowindow.open(map, marker);
 
             // When the user selects an address from the dropdown, populate the address
             // fields in the form.
@@ -232,7 +245,7 @@
                 ].join(' ');
             }
 
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            setInfoWindow(place.name, address);
             infowindow.open(map, marker);
 
             // Get each component of the address from the place details
@@ -265,7 +278,10 @@
                 });
             }
         }
-        // [END region_geolocation]
+
+        function setInfoWindow(plance_name, address) {
+            infowindow.setContent('<div><strong>' + plance_name + '</strong><br>' + address);
+        }
 
         function setMapMarker() {
             marker.setIcon(/** @type {google.maps.Icon} */({
@@ -276,6 +292,13 @@
                 scaledSize: new google.maps.Size(35, 35)
             }));
         }
+        // [END region_geolocation]
+
+        // Check form change
+        $('form').on('keyup change', 'input, select, textarea', function(){
+            console.log('Form changed!');
+            $('#update-btn').prop('disabled', false);
+        });
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2uw6NAXI2l8MPA6rDrsdQJS3e-zm_44g&signed_in=true&libraries=places&callback=initAutocomplete&language=en_UK"
             async defer></script>

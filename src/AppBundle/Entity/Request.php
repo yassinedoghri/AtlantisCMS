@@ -33,7 +33,7 @@ class Request
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Crisis", inversedBy="assistanceList")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="crisis", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="crisis", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     private $crisis;
@@ -145,5 +145,10 @@ class Request
     public function getAssistance()
     {
         return $this->assistance;
+    }
+
+    public function __toString()
+    {
+        return $this->getAssistance()->getWording();
     }
 }

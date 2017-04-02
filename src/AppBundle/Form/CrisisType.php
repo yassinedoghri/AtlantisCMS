@@ -49,33 +49,28 @@ class CrisisType extends AbstractType
             'attr' => array(
                 'class' => 'form-control',
                 'id' => 'street_number',
-                'placeholder' => 'Street Number',
-                'disabled' => 'true'
+                'placeholder' => 'Street Number'
             )
         ))->add('streetRoute', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
                 'id' => 'route',
-                'placeholder' => 'Route',
-                'disabled' => 'true'
+                'placeholder' => 'Route'
             )
         ))->add('postalCode', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
-                'id' => 'postal_code',
-                'disabled' => 'true'
+                'id' => 'postal_code'
             )
         ))->add('city', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
-                'id' => 'locality',
-                'disabled' => 'true'
+                'id' => 'locality'
             )
         ))->add('country', TextType::class, array(
             'attr' => array(
                 'class' => 'form-control',
-                'id' => 'country',
-                'disabled' => 'true'
+                'id' => 'country'
             )
         ))->add('latitude', HiddenType::class, array(
             'attr' => array(
@@ -112,8 +107,7 @@ class CrisisType extends AbstractType
                 'Request' => 'request',
                 'In progress' => 'in_progress',
                 'Done' => 'done',
-            ),
-            'data' => 'request'
+            )
         ));
     }
 

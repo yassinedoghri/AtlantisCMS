@@ -45,16 +45,17 @@ class Assistance
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Crisis", mappedBy="assistance")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Request", mappedBy="assistance")
+     *
      */
-    private $crisis;
+    private $crises;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->crisis = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->crises = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -141,36 +142,36 @@ class Assistance
     }
 
     /**
-     * Add crisi
+     * Add crises
      *
-     * @param \AppBundle\Entity\Crisis $crisi
+     * @param \AppBundle\Entity\Crisis $crises
      *
      * @return Assistance
      */
-    public function addCrisi(\AppBundle\Entity\Crisis $crisi)
+    public function addCrisi(\AppBundle\Entity\Crisis $crises)
     {
-        $this->crisis[] = $crisi;
+        $this->crises[] = $crises;
 
         return $this;
     }
 
     /**
-     * Remove crisi
+     * Remove crises
      *
-     * @param \AppBundle\Entity\Crisis $crisi
+     * @param \AppBundle\Entity\Crisis $crises
      */
-    public function removeCrisi(\AppBundle\Entity\Crisis $crisi)
+    public function removeCrisi(\AppBundle\Entity\Crisis $crises)
     {
-        $this->crisis->removeElement($crisi);
+        $this->crises->removeElement($crises);
     }
 
     /**
-     * Get crisis
+     * Get crises
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCrisis()
+    public function getCrises()
     {
-        return $this->crisis;
+        return $this->crises;
     }
 }

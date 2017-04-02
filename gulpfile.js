@@ -11,8 +11,7 @@ var basePath = './src/AppBundle/Resources/public';
 
 gulp.task('scripts', function () {
     return gulp.src([
-        basePath + '/js/helpers/*.js',
-        basePath + '/js/*.js',
+        basePath + '/js/custom.js'
     ])
         .pipe(gulp.dest(basePath + '/js'))
         .pipe(rename({suffix: '.min'}))
