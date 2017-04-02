@@ -103,6 +103,12 @@
                             borderColor: "rgba(26,187,156,1)",
                             data: accidentdata
                         }]
+                }, 
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: false
+                    }
                 }
             });
             document.getElementById('radar-legend').innerHTML = myChart.generateLegend();
