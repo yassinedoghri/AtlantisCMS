@@ -73,7 +73,7 @@
         <!-- /top tiles -->
 
         <div class="row">
-            {{ include('AppBundle:Dashboard:crisis_map.html.twig') }}
+            {{ include('AppBundle:Default/includes:crisis_map.html.twig') }}
 
             <!-- start of weather widget -->
             <div class="col-md-4 col-sm-4 col-xs-12">
@@ -177,9 +177,9 @@
             <!-- end of weather widget -->
         </div>
         <div class="row">
-            {{ include('AppBundle:Dashboard:crises_top_month.html.twig') }}
+            {{ include('AppBundle:Default/includes:crises_top_month.html.twig') }}
 
-            {{ include('AppBundle:Dashboard:doughnut_chart.html.twig') }}
+            {{ include('AppBundle:Default/includes:doughnut_chart.html.twig') }}
             
             <!-- Start to do list -->
             <div class="col-md-4 col-sm-4 col-xs-12">
@@ -241,9 +241,9 @@
         </div>
 
         <div class="row">
-             {{ include('AppBundle:Dashboard:radar_chart.html.twig') }}
+             {{ include('AppBundle:Default/includes:radar_chart.html.twig') }}
             
-            {{ include('AppBundle:Dashboard:timeline_charts.html.twig') }}
+            {{ include('AppBundle:Default/includes:timeline_charts.html.twig') }}
         </div>
     <!-- /page content -->
 {% endblock %}
