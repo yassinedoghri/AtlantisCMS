@@ -4,8 +4,67 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a8f2869d0cd1ebf67d936337f113be6",
+    "content-hash": "44c88eadfe0c3c2cc665675480895ce8",
     "packages": [
+        {
+            "name": "composer/ca-bundle",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/ca-bundle.git",
+                "reference": "b17e6153cb7f33c7e44eb59578dc12eee5dc8e12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/b17e6153cb7f33c7e44eb59578dc12eee5dc8e12",
+                "reference": "b17e6153cb7f33c7e44eb59578dc12eee5dc8e12",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "php": "^5.3.2 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.5",
+                "psr/log": "^1.0",
+                "symfony/process": "^2.5 || ^3.0"
+            },
+            "suggest": {
+                "symfony/process": "This is necessary to reliably check whether openssl_x509_parse is vulnerable on older php versions, but can be ignored on PHP 5.5.6+"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\CaBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Lets you find a path to the system CA bundle, and includes a fallback to the Mozilla CA bundle.",
+            "keywords": [
+                "cabundle",
+                "cacert",
+                "certificate",
+                "ssl",
+                "tls"
+            ],
+            "time": "2017-03-06T11:59:08+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.4.0",
@@ -776,17 +835,75 @@
             "time": "2016-12-18T15:42:34+00:00"
         },
         {
+            "name": "facebook/graph-sdk",
+            "version": "5.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/php-graph-sdk.git",
+                "reference": "5d0c4865e80e231d48a4571841bd018828fe58e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/5d0c4865e80e231d48a4571841bd018828fe58e1",
+                "reference": "5d0c4865e80e231d48a4571841bd018828fe58e1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~5.0",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client",
+                "paragonie/random_compat": "Provides a better CSPRNG option in PHP 5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                },
+                "files": [
+                    "src/Facebook/polyfills.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Facebook Platform"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/php-graph-sdk/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/php-graph-sdk",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "time": "2017-01-19T15:42:20+00:00"
+        },
+        {
             "name": "friendsofsymfony/user-bundle",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "88b87249206fd867d5de8cee82e60885c0c8f749"
+                "reference": "fda6cbe3db268ab35d569d28a37d9b0f6d0eef60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/88b87249206fd867d5de8cee82e60885c0c8f749",
-                "reference": "88b87249206fd867d5de8cee82e60885c0c8f749",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/fda6cbe3db268ab35d569d28a37d9b0f6d0eef60",
+                "reference": "fda6cbe3db268ab35d569d28a37d9b0f6d0eef60",
                 "shasum": ""
             },
             "require": {
@@ -850,7 +967,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2017-03-19 13:49:51"
+            "time": "2017-04-05 07:28:52"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -954,6 +1071,62 @@
             "time": "2014-01-12T16:20:24+00:00"
         },
         {
+            "name": "jmose/command-scheduler-bundle",
+            "version": "v1.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/J-Mose/CommandSchedulerBundle.git",
+                "reference": "e7de713f712ebc651f10c496c5dc41a082a19bb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/J-Mose/CommandSchedulerBundle/zipball/e7de713f712ebc651f10c496c5dc41a082a19bb6",
+                "reference": "e7de713f712ebc651f10c496c5dc41a082a19bb6",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "~1.0",
+                "doctrine/orm": "~2.2,>=2.2.3,<2.6",
+                "mtdowling/cron-expression": "~1.0",
+                "php": ">=5.5.9",
+                "sensio/framework-extra-bundle": "~2.3|~3.0",
+                "symfony/symfony": "~2.7|~3.0",
+                "twig/twig": "~1.15"
+            },
+            "require-dev": {
+                "doctrine/doctrine-fixtures-bundle": "~2.2",
+                "liip/functional-test-bundle": "1.2.2|~1.3",
+                "phpunit/phpunit": "~4.4",
+                "satooshi/php-coveralls": "~0.6"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "JMose\\CommandSchedulerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Julien Guyon",
+                    "email": "julienguyon@hotmail.com"
+                }
+            ],
+            "description": "This Symfony2 bundle will allow you to schedule all your commands just like UNIX crontab",
+            "homepage": "https://github.com/J-Mose/CommandSchedulerBundle",
+            "keywords": [
+                "command",
+                "cron",
+                "scheduler",
+                "symfony",
+                "task"
+            ],
+            "time": "2017-03-02T08:22:11+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.22.1",
             "source": {
@@ -1030,6 +1203,50 @@
                 "psr-3"
             ],
             "time": "2017-03-13T07:08:03+00:00"
+        },
+        {
+            "name": "mtdowling/cron-expression",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtdowling/cron-expression.git",
+                "reference": "9504fa9ea681b586028adaaa0877db4aecf32bad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtdowling/cron-expression/zipball/9504fa9ea681b586028adaaa0877db4aecf32bad",
+                "reference": "9504fa9ea681b586028adaaa0877db4aecf32bad",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0|~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cron\\": "src/Cron/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
+            "keywords": [
+                "cron",
+                "schedule"
+            ],
+            "time": "2017-01-23T04:29:33+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1296,19 +1513,20 @@
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v4.0.2",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "56bded66985e22f6eac2cf86735fd21c625bff2f"
+                "reference": "9e69eddf3bc49d1ee5c7908564da3141796d4bbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/56bded66985e22f6eac2cf86735fd21c625bff2f",
-                "reference": "56bded66985e22f6eac2cf86735fd21c625bff2f",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/9e69eddf3bc49d1ee5c7908564da3141796d4bbc",
+                "reference": "9e69eddf3bc49d1ee5c7908564da3141796d4bbc",
                 "shasum": ""
             },
             "require": {
+                "composer/ca-bundle": "^1.0",
                 "symfony/console": "~2.7|~3.0"
             },
             "bin": [
@@ -1336,7 +1554,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2017-03-09T17:33:20+00:00"
+            "time": "2017-03-31T14:50:32+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1850,16 +2068,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b0f8a7fa4b8baadf9db299cb6ac87c96a8977dbe"
+                "reference": "1631040ea8fc5e0e405c00d35cbf2c0b7b555f64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b0f8a7fa4b8baadf9db299cb6ac87c96a8977dbe",
-                "reference": "b0f8a7fa4b8baadf9db299cb6ac87c96a8977dbe",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/1631040ea8fc5e0e405c00d35cbf2c0b7b555f64",
+                "reference": "1631040ea8fc5e0e405c00d35cbf2c0b7b555f64",
                 "shasum": ""
             },
             "require": {
@@ -1990,25 +2208,24 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-03-10T18:35:48+00:00"
+            "time": "2017-04-05T12:52:29+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v2.3.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9718186a5df85a4f7917e78d3ffcabc204c75d25"
+                "reference": "05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9718186a5df85a4f7917e78d3ffcabc204c75d25",
-                "reference": "9718186a5df85a4f7917e78d3ffcabc204c75d25",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a",
+                "reference": "05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
-                "symfony/polyfill-mbstring": "~1.0"
+                "php": ">=5.2.7"
             },
             "require-dev": {
                 "psr/container": "^1.0",
@@ -2018,7 +2235,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "1.33-dev"
                 }
             },
             "autoload": {
@@ -2053,7 +2270,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-03-22T15:41:51+00:00"
+            "time": "2017-03-22T15:40:09+00:00"
         }
     ],
     "packages-dev": [
@@ -2113,7 +2330,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",

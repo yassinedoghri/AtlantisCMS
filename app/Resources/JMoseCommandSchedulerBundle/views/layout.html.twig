@@ -1,0 +1,64 @@
+{% trans_default_domain 'JMoseCommandScheduler' %}
+<!DOCTYPE html>
+<html lang="{{ app.request.attributes.get('_locale', 'en') }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Command Scheduler</title>
+    <link href="{{ asset('bundles/jmosecommandscheduler/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/jmosecommandscheduler/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+</head>
+<body>
+{% include 'JMoseCommandSchedulerBundle:Navbar:navbar.html.twig' %}
+<div class="jumbotron">
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{% block title %}{% endblock title %}</h2>
+
+                {# Succes flash messages #}
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success" role="alert">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+
+                {# Errors flash messages #}
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+        <hr>
+        <!--
+        <footer>
+            <p>&copy; Company</p>
+        </footer>
+        -->
+    </div>
+</div><!-- /container -->
+
+<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/jquery-1.11.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/bootstrap-tooltip.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/jmosecommandscheduler/js/bootstrap-confirmation.js') }}"></script>
+
+<script type="text/javascript">
+    // Enable bootstrap-confirmation
+    $(document).ready(function () {
+        //$('[data-toggle="confirmation"]').confirmation();
+        $('[data-toggle="confirmation"]').confirmation({
+            singleton: true,
+            popout: true,
+            placement: 'left'
+        });
+    });
+</script>
+</body>
+</html>

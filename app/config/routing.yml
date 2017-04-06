@@ -4,3 +4,7 @@ app:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+jmose_command_scheduler:
+  resource : "@JMoseCommandSchedulerBundle/Resources/config/routing.yml"
+  prefix: /
