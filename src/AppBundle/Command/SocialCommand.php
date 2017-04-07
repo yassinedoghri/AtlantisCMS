@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Command;
 
+use AppBundle\Entity\Crisis;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,6 +25,15 @@ class SocialCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+    	$length = 10;
+    	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    	$characterLength = strlen($characters);
+    	$randomString = '';
+
+    	for($i = 0; $i < $length; $i++)
+    	{
+    		$randomString .= $characters[rand(0, $characterLength -1)];
+    	}
 
     	$fb = new Facebook\Facebook([
 		 'app_id' => '151027518757598',
@@ -34,10 +44,10 @@ class SocialCommand extends Command
      	//Post property to Facebook
 		$linkData = [
 		 /*'link' => 'http://127.0.0.1:8000',*/
-		 'message' => 'Test to fb and Twitter'
+		 'message' => $randomString
 		];
 
-		$pageAccessToken ='EAACJW9WbWt4BAJPOVAAewcmJonaTiZBYgUtax9XGWMNRPsLYuroqYe4MtRjBapqRuKSYAuzux04FdlWX2wuWZAhmkoDPJzb51EkutNbBte7lvZAkzwkQKZApY5MckP0fXoM1mcE5UVgDXZCoCKlIWpBASX7bWb46r9l5a8kS0ZApvC93YGnoCQ0aQUkkfEwVGk4iQMHzjd2QZDZD';
+		$pageAccessToken ='EAACJW9WbWt4BAImmdLUaBgSM2t3RlSd0ugdf3TKwXy5AenOYGK41X7eSMsFtAnpccMcrwhWAo3MaUpYCRisgr5T4U1ZAucgDNQZBCls4gqlz7ZAehq3EXWmHwNiEvyD37z7SZBGU69fTExZAGMQ7T9z7GZC31Qz7uiZCiqs0OVxxqsyodUZA1iORn3aRZB956zymst2uppgbpkQZDZD';
 
 		try{
 			$fb = new Facebook\Facebook([
