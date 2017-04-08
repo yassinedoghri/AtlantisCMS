@@ -13,15 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="wording", type="string", length=32, nullable=false)
@@ -35,17 +26,16 @@ class Category
      */
     private $markerImg;
 
-
-
     /**
-     * Get id
+     * @var integer
      *
-     * @return integer
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $id;
+
+
 
     /**
      * Set wording
@@ -93,5 +83,15 @@ class Category
     public function getMarkerImg()
     {
         return $this->markerImg;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
