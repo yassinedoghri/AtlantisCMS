@@ -58,7 +58,7 @@ class CollectHazeDataCommand extends Command {
     }
     protected function updateTable($id, $lat, $lng, $timestamp, $readings){
 	$em = $this->getDoctrine()->getManager();
-	$region = $em->getRepository('AppBundle:Haze')->findBy('region_id' => $id);
+	$region = $em->getRepository('AppBundle:Haze')->findBy(array('region_id' => $id));
 	if(!$region){
 		throw $this->createNotFoundException('No haze found for id '.$id);
 	}
