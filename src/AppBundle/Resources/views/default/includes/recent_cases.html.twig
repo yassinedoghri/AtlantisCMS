@@ -11,43 +11,27 @@
                     </div>
                     <div class="x_content">
                         <div class="activity_panel">
-                            <ul class="to_do">
-                                <li>
-                                    <p>
-                                        <class="flat"> Schedule meeting with
-                                        new client
-                                    </p>
-                                </li>
+                            <ul class="list-group">
+                                {% for crisis in data %} 
+                                    {% if crisis.showToPublic == 1 %}
+                                        <li class="list-group-item" style="padding:4px;">
+                                            {% if crisis.category.wording == 'Vehicule Accident' %}
+                                                <h4 style="float:left; color:#1ABB9C; padding-right: 5px;">ACCI&nbsp;</h4>
+                                            {% elseif crisis.category.wording == 'Fire' %}
+                                                <h4 style="float:left; color:#9B59B6; padding-right: 5px;">FIRE&nbsp;</h4>
+                                            {% elseif crisis.category.wording == 'Dengue' %}
+                                                <h4 style="float:left; color:#3498DB; padding-right: 5px;">DENGUE&nbsp;</h4>
+                                            {% elseif crisis.category.wording == 'Haze' %}
+                                                <h4 style="float:left; color:#E74C3C; padding-right: 5px;">HAZE&nbsp;</h4>
+                                            {% endif %}
+                                            <p style="margin:0;">{{ crisis.addressLine1 }}</p>
+                                            <small class="line-height:0;padding:0;">{{ crisis.submittedOn|date('d-m-Y H:i:s') }}</small>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
             {% endblock %}
-
-            {% block custom_javascripts %}
-    <!-- Custom Theme Scripts -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-        var markersToAdd = [];
-        var crisislist = [];
-
-        // fetch data from database and add as array of object
-        {% for crisis in data %} 
-            var addrline1 = '{{ crisis.addressLine1 }}';
-            var category = '{{ crisis.category.id }}';
-            var showToPublic = '{{ crisis.showToPublic }}';
-
-            markersToAdd = [
-                [addrline1, category]
-            ];
-
-            // loop through each marker and add them one by one
-            for (i = 0; i < markersToAdd.length; i++) {
-                addMarker(markersToAdd[i]);
-            }
-        {% endfor %}
-
-            
-    </script>
-{% endblock %}
