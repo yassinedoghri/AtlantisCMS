@@ -1,6 +1,6 @@
 
 {% block page_content %}
-    <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="col-md-16 col-sm-16 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Crises Timeline Summary
@@ -44,6 +44,8 @@
 
             // data mapping based on submission date for each crises
             for (var i = 0; i < crisislist.length; i++) {
+                console.log(crisislist[i].category);
+                console.log(crisislist[i].date);
                 hazecounter = 1, denguecounter = 1, firecounter = 1, accidentcounter = 1;
                 if (crisislist[i].category == 1) {
                     if (i == crisislist.length - 1 || crisislist[i].date != crisislist[i + 1].date) {
