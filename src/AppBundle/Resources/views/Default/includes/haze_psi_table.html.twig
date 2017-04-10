@@ -1,0 +1,107 @@
+
+{% block page_content %}
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel tile fixed_height_320">
+            <div class="x_title">
+                <h2>Haze PSI</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="dashboard-widget-content">
+                    <!-- North -->
+                    <div style="width: 100%;">
+                        <div class="leftbox">
+                            <p class="left_hazebox_text" style="color:#393f47;">NORTH |</p>
+                        </div>
+                        <div class="right_hazebox" >
+                            <p class="right_hazebox_text">
+                                {% for region in hazeInfo %} 
+                                    {% if region.regionId == 'rNO' %}
+                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+
+                    <!-- South -->
+                    <div style="width: 100%;">
+                        <div class="leftbox">
+                            <p class="left_hazebox_text" style="color:#393f47;">SOUTH |</p>
+                        </div>
+                        <div class="right_hazebox">
+                            <p class="right_hazebox_text" >
+                                {% for region in hazeInfo %} 
+                                    {% if region.regionId == 'rSO' %}
+                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+
+                    <!-- East -->
+                    <div style="width: 100%;">
+                        <div class="left_hazebox">
+                            <p class="left_hazebox_text" style="color:#393f47;">EAST |</p>
+                        </div>
+                        <div class="right_hazebox">
+                            <p class="right_hazebox_text">
+                                {% for region in hazeInfo %} 
+                                    {% if region.regionId == 'rEA' %}
+                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+
+                    <!-- West -->
+                    <div style="width: 100%;">
+                        <div class="left_hazebox">
+                            <p class="left_hazebox_text" style="color:#393f47;">WEST |</p>
+                        </div>
+                        <div class="right_hazebox">
+                            <p class="right_hazebox_text">
+                                {% for region in hazeInfo %} 
+                                    {% if region.regionId == 'rWE' %}
+                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>  
+                    <div style="clear:both"></div>
+
+                    <!-- Central-->
+                    <div style="width: 100%;">
+                        <div class="left_hazebox">
+                            <p class="left_hazebox_text" style="color:#393f47;">CENTRAL |</p>
+                        </div>
+                        <div class="right_hazebox">
+                            <p class="right_hazebox_text">
+                                {% for region in hazeInfo %} 
+                                    {% if region.regionId == 'rCE' %}
+                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div> 
+                    <div style="clear:both"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+{% endblock %}

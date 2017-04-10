@@ -17,7 +17,9 @@ class DefaultController extends Controller
     {
         // get all crisis
         $data = $this->getDoctrine()->getManager()->getRepository('AppBundle:Crisis')->findAll();
+        $haze = $this->getDoctrine()->getManager()->getRepository('AppBundle:Haze')->findAll();
+        dump($haze);
         dump($data);
-        return array('data' => $data);
+        return array('data' => $data, 'hazeInfo' => $haze);
     }
 }
