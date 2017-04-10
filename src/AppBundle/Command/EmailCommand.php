@@ -5,8 +5,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\HttpFoundation\Session\Session;
 use PHPMailer;
 
+
+       
 class EmailCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -26,6 +29,16 @@ class EmailCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if($this->getContainer()->get('session')->isStarted()){
+            $session->start();
+            $previousID = $this->getContainer()->get('session')->get('id');
+            $output-> writeln($previousID);
+        }
+        else
+        {
+            $session = new Session();
+        }
+
     	$data = $this->getContainer()->get('doctrine')->getManager()->getRepository('AppBundle:Crisis')->findAll();
     	dump($data);
 
@@ -37,43 +50,59 @@ class EmailCommand extends ContainerAwareCommand
     	$hCase = 0;
     	$fCase = 0;
      	$vCase = 0;
+        $progressCount = 0;
+        $requestCount = 0;
+        $doneCount = 0;
+        $totalCase = count($data);
+
 
     	fwrite($pmSummary, $messageLine);
 
     	for($i = 0; $i<count($data); $i++)
     	{
     		$category = "";
+            if($data[$i]->getStatus() == "in_progress"){
+                $progressCount++;
+            }
+            else if($data[$i]->getStatus() == "request"){
+                $requestCount++;
+            }
+            else if($data[$i]->getStatus() == "done"){
+                $doneCount++;
+            }
+
 
     		switch($data[$i]->getCategory()->getId()){
     			
     			case 1:
-    				$category = "Haze";
-    				$hCase++;
-    				break;
-    			case 2:
-    				$category = "Dengue";
-    				$dCase++;
-    				break;
-    			case 3:
-    				$category = "Fire";
-    				$fCase++;
-    				break;
-    			case 4:
     				$category = "Vehicle Accident";
-    				$vCase++;
-    				break;
-
+                    $vCase++;
+                    break;
+    			case 2:
+                    $category = "Fire";
+                    $fCase++;
+                    break;
+    			case 3:
+    				$category = "Dengue";
+                    $dCase++;
+                    break;
+    				
     		}
-    		$output->writeln($data[$i]->getAddressLine1());
+    		//$output->writeln($data[$i]->getAddressLine1());
     		$dateS = ($data[$i]->getSubmittedOn())-> format('d-m-Y H:i:s');
     		$dateU = ($data[$i]->getLastModification())-> format('d-m-Y H:i:s');
     		
     		$messageLine = " \n Category: ". $category ."\n Address: ". $data[$i]->getAddressLine1() . " \n Message: ". $data[$i]->getMessage() . " \n Status: " . $data[$i]->getStatus() ." \n Submitted On: ". $dateS ." \n Last Update: " . $dateU . "\n ----------------------------------------------------------------------------------------------------------";
 
+            
     		fwrite($pmSummary, $messageLine);
+            $this->getContainer()->get('session')->set('id', $data[$i]->getId());   
     	}
 
-    	$messageLine = "\n Total Haze Cases: ".$hCase."\n Total Dengue Cases: ".$dCase."\n Total Fire Cases: ".$fCase."\n Total Vehicle Accident Cases: ".$vCase;
+        $lastID = $this->getContainer()->get('session')->get('id');
+        
+        //$output-> writeln($lastID);
+    	$messageLine ="\n Total Dengue Cases: ".$dCase."\n Total Fire Cases: ".$fCase."\n Total Vehicle Accident Cases: ".$vCase."\n Total Number of Cases: ".$totalCase."\n Total Cases in progress: ".$progressCount."\n Total Cases in request: ".$requestCount."\n Total Cases done: ".$doneCount;
     	fwrite($pmSummary, $messageLine);
 
     	fclose($pmSummary);
