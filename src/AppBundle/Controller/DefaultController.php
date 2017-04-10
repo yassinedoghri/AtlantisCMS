@@ -17,8 +17,7 @@ class DefaultController extends Controller
     {
         // get all crisis
         $data = $this->getDoctrine()->getManager()->getRepository('AppBundle:Crisis')->findAll();
-        $usercount = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
         dump($data);
-        return array('data' => $data, 'usercount' => $usercount);
+        return array('data' => $data);
     }
 }
