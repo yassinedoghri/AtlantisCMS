@@ -61,3 +61,4 @@ node_modules/
 
 # Cache
 .sass-cache/
+*.twig
