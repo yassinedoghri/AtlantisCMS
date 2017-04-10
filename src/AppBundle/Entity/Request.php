@@ -15,7 +15,7 @@ class Request
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="sent_at", type="date", nullable=false)
+     * @ORM\Column(name="sent_at", type="datetime", nullable=false)
      */
     private $sentAt;
 

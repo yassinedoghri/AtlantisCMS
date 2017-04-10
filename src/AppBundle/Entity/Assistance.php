@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Assistance
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="wording", type="string", length=32, nullable=false)
@@ -34,29 +43,31 @@ class Assistance
     private $contactNumber;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Crisis", mappedBy="assistance")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Request", mappedBy="assistance")
+     *
      */
-    private $crisis;
+    private $crises;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->crisis = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->crises = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set wording
@@ -131,46 +142,36 @@ class Assistance
     }
 
     /**
-     * Get id
+     * Add crises
      *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Add crisi
-     *
-     * @param \AppBundle\Entity\Crisis $crisi
+     * @param \AppBundle\Entity\Crisis $crises
      *
      * @return Assistance
      */
-    public function addCrisi(\AppBundle\Entity\Crisis $crisi)
+    public function addCrisi(\AppBundle\Entity\Crisis $crises)
     {
-        $this->crisis[] = $crisi;
+        $this->crises[] = $crises;
 
         return $this;
     }
 
     /**
-     * Remove crisi
+     * Remove crises
      *
-     * @param \AppBundle\Entity\Crisis $crisi
+     * @param \AppBundle\Entity\Crisis $crises
      */
-    public function removeCrisi(\AppBundle\Entity\Crisis $crisi)
+    public function removeCrisi(\AppBundle\Entity\Crisis $crises)
     {
-        $this->crisis->removeElement($crisi);
+        $this->crises->removeElement($crises);
     }
 
     /**
-     * Get crisis
+     * Get crises
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCrisis()
+    public function getCrises()
     {
-        return $this->crisis;
+        return $this->crises;
     }
 }

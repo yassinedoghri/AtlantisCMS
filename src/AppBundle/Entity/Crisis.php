@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Crisis
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="contact_firstname", type="string", length=32, nullable=false)
@@ -136,16 +145,14 @@ class Crisis
      *
      * @ORM\Column(name="show_to_public", type="boolean", nullable=true)
      */
-    private $showToPublic;
+    private $showToPublic = '0';
 
     /**
-     * @var integer
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Request", mappedBy="crisis")
      */
-    private $id;
+    protected $assistanceList;
 
     /**
      * @var \AppBundle\Entity\User
@@ -178,28 +185,23 @@ class Crisis
     private $category;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Assistance", inversedBy="crisis")
-     * @ORM\JoinTable(name="request",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="crisis", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="assistance", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $assistance;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->assistance = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->assistanceList = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set contactFirstname
@@ -634,13 +636,37 @@ class Crisis
     }
 
     /**
-     * Get id
+     * Add assistanceList
      *
-     * @return integer
+     * @param \AppBundle\Entity\Request $assistance
+     *
+     * @return Crisis
      */
-    public function getId()
+    public function addAssistanceList(\AppBundle\Entity\Request $assistance)
     {
-        return $this->id;
+        $this->assistanceList[] = $assistance;
+
+        return $this;
+    }
+
+    /**
+     * Remove assistanceList
+     *
+     * @param \AppBundle\Entity\Request $assistanceList
+     */
+    public function removeAssistanceList(\AppBundle\Entity\Request $assistanceList)
+    {
+        $this->assistanceList->removeElement($assistanceList);
+    }
+
+    /**
+     * Get assistanceList
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAssistanceList()
+    {
+        return $this->assistanceList;
     }
 
     /**
@@ -713,39 +739,5 @@ class Crisis
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * Add assistance
-     *
-     * @param \AppBundle\Entity\Assistance $assistance
-     *
-     * @return Crisis
-     */
-    public function addAssistance(\AppBundle\Entity\Assistance $assistance)
-    {
-        $this->assistance[] = $assistance;
-
-        return $this;
-    }
-
-    /**
-     * Remove assistance
-     *
-     * @param \AppBundle\Entity\Assistance $assistance
-     */
-    public function removeAssistance(\AppBundle\Entity\Assistance $assistance)
-    {
-        $this->assistance->removeElement($assistance);
-    }
-
-    /**
-     * Get assistance
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAssistance()
-    {
-        return $this->assistance;
     }
 }

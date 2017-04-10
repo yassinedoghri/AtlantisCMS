@@ -152,7 +152,7 @@
             {{ include('AppBundle:Default/includes:doughnut_chart.html.twig') }}
             
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {{ include('AppBundle:Default/includes:pending_requests.html.twig') }}
+            {{ include('AppBundle:Default/includes:pending_request.html.twig') }}
             {% else %}
             {{ include('AppBundle:Default/includes:recent_cases.html.twig') }}
             {% endif %}
