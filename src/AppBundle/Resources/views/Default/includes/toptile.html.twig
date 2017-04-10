@@ -1,0 +1,54 @@
+{% block page_content %}
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top">Total Crises Cases</span>
+            <div class="count" id="tcrises"></div>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Month</span>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top">Total Haze Cases</span>
+            <div class="count" id="thazecase"></div>
+            <span class="count_bottom"><i class="green">4% </i> From last Month</span>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"> Total Dengue Cases</span>
+            <div class="count" id="tdenguecase"></div>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Month</span>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"> Total Fire Incidents</span>
+            <div class="count" id="tfirecase"></div>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Month</span>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"> Total Car Accidents</span>
+            <div class="count" id="tcaraccident"></div>
+            <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Month</span>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"> Total Users</span>
+            <div class="count" id="tusercount"></div>
+            <span class="count_bottom"><i class="green">4% </i> From last Month</span>
+        </div>
+{% endblock %}
+
+
+{% block custom_javascripts %}
+    <script>
+        function displayTopTile(totalhaze, totaldengue, totalfire, totalaccident) {
+            var usercount = 0;
+            
+            {% for user in usercount %} 
+                usercount++;
+            {% endfor %}
+                
+            var total = totalhaze + totaldengue + totalfire + totalaccident;
+
+            document.getElementById('thazecase').innerHTML = totalhaze;
+            document.getElementById('tdenguecase').innerHTML = totaldengue;
+            document.getElementById('tfirecase').innerHTML = totalfire;
+            document.getElementById('tcaraccident').innerHTML = totalaccident;
+            document.getElementById('tcrises').innerHTML = total;
+            document.getElementById('tusercount').innerHTML = usercount;
+        }
+    </script>
+{% endblock %}
