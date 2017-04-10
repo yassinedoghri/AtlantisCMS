@@ -24,13 +24,13 @@
             <div class="count" id="tcaraccident"></div>
             <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Month</span>
         </div>
-        
 {% endblock %}
 
 
 {% block custom_javascripts %}
     <script>
-        function displayTopTile(totalhaze, totaldengue, totalfire, totalaccident) {                
+        function displayTopTile(totalhaze, totaldengue, totalfire, totalaccident) {
+                
             var total = totalhaze + totaldengue + totalfire + totalaccident;
 
             document.getElementById('thazecase').innerHTML = totalhaze;
