@@ -25,10 +25,12 @@
                                         <h4 style="float:left; color:#E74C3C; padding-right: 5px;">HAZE&nbsp;</h4>
                                     {% endif %}
                                     <p style="margin:0;">{{ crisis.addressLine1 }}</p>
-                                    <a class="fa fa-pencil-square-o" aria-hidden="true"
-                                       href="{{ path('update-crisis', {'id': crisis.id}) }}"
-                                       style="float:right; padding-right:4px;"
-                                       data-toggle="tooltip" data-placement="left" title="Update"></a>
+                                    {% if is_granted('ROLE_CALL_OPERATOR') or is_granted('ROLE_SUPER_ADMIN') %}
+                                        <a class="fa fa-pencil-square-o" aria-hidden="true"
+                                           href="{{ path('update-crisis', {'id': crisis.id}) }}"
+                                           style="float:right; padding-right:4px;"
+                                           data-toggle="tooltip" data-placement="left" title="Update"></a>
+                                    {% endif %}
                                     <small class="line-height:0;padding:0;">{{ crisis.submittedOn|date('d-m-Y H:i:s') }}</small>
                                 </li>
                             {% endif %}
