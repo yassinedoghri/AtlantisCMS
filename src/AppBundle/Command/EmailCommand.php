@@ -89,8 +89,8 @@ class EmailCommand extends ContainerAwareCommand
     				
     		}
     		//$output->writeln($data[$i]->getAddressLine1());
-    		$dateS = ($data[$i]->getSubmittedOn())-> format('d-m-Y H:i:s');
-    		$dateU = ($data[$i]->getLastModification())-> format('d-m-Y H:i:s');
+    		$dateS = $data[$i]->getSubmittedOn()->format('d-m-Y H:i:s');
+    		$dateU = $data[$i]->getLastModification()->format('d-m-Y H:i:s');
     		
     		$messageLine = " \n Category: ". $category ."\n Address: ". $data[$i]->getAddressLine1() . " \n Message: ". $data[$i]->getMessage() . " \n Status: " . $data[$i]->getStatus() ." \n Submitted On: ". $dateS ." \n Last Update: " . $dateU . "\n ----------------------------------------------------------------------------------------------------------";
 
