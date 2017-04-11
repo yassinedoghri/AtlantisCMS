@@ -1,4 +1,3 @@
-
 {% block page_content %}
     <div class="col-md-4 col-sm-4 col-xs-12">
         <div class="x_panel tile fixed_height_320">
@@ -7,8 +6,6 @@
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a><i class="fa fa-refresh"></i></a></li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        </ul>
-                    </li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -19,11 +16,12 @@
                         <div class="leftbox">
                             <p class="left_hazebox_text" style="color:#393f47;">NORTH |</p>
                         </div>
-                        <div class="right_hazebox" >
+                        <div class="right_hazebox">
                             <p class="right_hazebox_text">
-                                {% for region in hazeInfo %} 
+                                {% for region in hazeInfo %}
                                     {% if region.regionId == 'rNO' %}
-                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                        <span align="center"
+                                              {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{ region.npsi }}</span>
                                     {% endif %}
                                 {% endfor %}
                             </p>
@@ -37,10 +35,11 @@
                             <p class="left_hazebox_text" style="color:#393f47;">SOUTH |</p>
                         </div>
                         <div class="right_hazebox">
-                            <p class="right_hazebox_text" >
-                                {% for region in hazeInfo %} 
+                            <p class="right_hazebox_text">
+                                {% for region in hazeInfo %}
                                     {% if region.regionId == 'rSO' %}
-                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                        <span align="center"
+                                              {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{ region.npsi }}</span>
                                     {% endif %}
                                 {% endfor %}
                             </p>
@@ -55,9 +54,10 @@
                         </div>
                         <div class="right_hazebox">
                             <p class="right_hazebox_text">
-                                {% for region in hazeInfo %} 
+                                {% for region in hazeInfo %}
                                     {% if region.regionId == 'rEA' %}
-                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                        <span align="center"
+                                              {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{ region.npsi }}</span>
                                     {% endif %}
                                 {% endfor %}
                             </p>
@@ -72,14 +72,15 @@
                         </div>
                         <div class="right_hazebox">
                             <p class="right_hazebox_text">
-                                {% for region in hazeInfo %} 
+                                {% for region in hazeInfo %}
                                     {% if region.regionId == 'rWE' %}
-                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                        <span align="center"
+                                              {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{ region.npsi }}</span>
                                     {% endif %}
                                 {% endfor %}
                             </p>
                         </div>
-                    </div>  
+                    </div>
                     <div style="clear:both"></div>
 
                     <!-- Central-->
@@ -89,14 +90,15 @@
                         </div>
                         <div class="right_hazebox">
                             <p class="right_hazebox_text">
-                                {% for region in hazeInfo %} 
+                                {% for region in hazeInfo %}
                                     {% if region.regionId == 'rCE' %}
-                                        <span align="center" {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{region.npsi}}</span>
+                                        <span align="center"
+                                              {% if region.npsi > 100 %}bgcolor='red'{% endif %}>{{ region.npsi }}</span>
                                     {% endif %}
                                 {% endfor %}
                             </p>
                         </div>
-                    </div> 
+                    </div>
                     <div style="clear:both"></div>
 
                 </div>
@@ -108,19 +110,19 @@
 
 {% block custom_javascripts %}
 
-<script>
+    <script>
 
-var total = 0;
-var count = 0;
+        var total = 0;
+        var count = 0;
 
-{% for region in hazeInfo %} 
-    total = total + {{region.npsi}};
-    count = count + 1;
-{% endfor %}
+        {% for region in hazeInfo %}
+        total = total + {{ region.npsi }};
+        count = count + 1;
+        {% endfor %}
 
-var avgTotal = total/count;
-document.getElementById('hazebox_title').innerHTML = "Haze PSI&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;"+avgTotal;
+        var avgTotal = total / count;
+        document.getElementById('hazebox_title').innerHTML = "Haze PSI&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;" + avgTotal;
 
-</script>
+    </script>
 
 {% endblock %}

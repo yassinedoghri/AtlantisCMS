@@ -11,11 +11,11 @@
             </div>
             <div class="x_content">
                 <h5 style="text-align: center;margin-top:0px;">Crises Summary for 2017</h5>
-                <canvas id="myRadarChart" style="width: 100%; height: auto;"></canvas>
+                <canvas id="myRadarChart" style="width: 100%; height: auto;" height="100"></canvas>
                 <div id="radar-legend" class="chart-legend"></div>
             </div>
         </div>
-    </div>    
+    </div>
 {% endblock %}    
 
 {% block custom_javascripts %}
@@ -43,19 +43,19 @@
                 for (var i = 0; i < crisislist.length; i++) {
                     if (crisislist[i].category == 1) {
                         if (month == crisislist[i].month) {
-                            hazecounter++;
+                            accidentcounter++;
                         }
                     } else if (crisislist[i].category == 2) {
                         if (month == crisislist[i].month) {
-                            denguecounter++;
+                            firecounter++;
                         }
                     } else if (crisislist[i].category == 3) {
                         if (month == crisislist[i].month) {
-                            firecounter++;
+                            denguecounter++;
                         }
                     } else if (crisislist[i].category == 4) {
                         if (month == crisislist[i].month) {
-                            accidentcounter++;
+                            hazecounter++;
                         }
                     }
                 }
@@ -71,27 +71,27 @@
                 data: {
                     labels: ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
                     datasets: [{
-                            label: 'Haze Cases',
-                            backgroundColor: "rgba(231,76,60,0.4)",
-                            borderColor: "rgba(231,76,60,1)",
-                            data: hazedata
-                        }, {
-                            label: 'Dengue Cases',
-                            backgroundColor: "rgba(52,152,219,0.4)",
-                            borderColor: "rgba(52,152,219,1)",
-                            data: denguedata
-                        }, {
-                            label: 'Fire Incident',
-                            backgroundColor: "rgba(155,89,182,0.4)",
-                            borderColor: "rgba(155,89,182,1)",
-                            data: firedata
-                        }, {
-                            label: 'Car Accident',
-                            backgroundColor: "rgba(26,187,156,0.4)",
-                            borderColor: "rgba(26,187,156,1)",
-                            data: accidentdata
-                        }]
-                }, 
+                        label: 'Haze Cases',
+                        backgroundColor: "rgba(231,76,60,0.4)",
+                        borderColor: "rgba(231,76,60,1)",
+                        data: hazedata
+                    }, {
+                        label: 'Dengue Cases',
+                        backgroundColor: "rgba(52,152,219,0.4)",
+                        borderColor: "rgba(52,152,219,1)",
+                        data: denguedata
+                    }, {
+                        label: 'Fire Incident',
+                        backgroundColor: "rgba(155,89,182,0.4)",
+                        borderColor: "rgba(155,89,182,1)",
+                        data: firedata
+                    }, {
+                        label: 'Car Accident',
+                        backgroundColor: "rgba(26,187,156,0.4)",
+                        borderColor: "rgba(26,187,156,1)",
+                        data: accidentdata
+                    }]
+                },
                 options: {
                     responsive: true,
                     legend: {

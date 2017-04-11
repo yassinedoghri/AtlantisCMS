@@ -1,37 +1,37 @@
 {% block page_content %}
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Recent Cases</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content {% if data|length > 5 %}pre-scrollable{% endif %}" style="height:245px;">
-                        <div class="activity_panel">
-                            <ul class="list-group">
-                                {% for crisis in data %} 
-                                    {% if crisis.showToPublic == 1 %}
-                                        <li class="list-group-item" style="padding:4px;">
-                                            {% if crisis.category.wording == 'Vehicule Accident' %}
-                                                <h4 style="float:left; color:#1ABB9C; padding-right: 5px;">ACCI&nbsp;</h4>
-                                            {% elseif crisis.category.wording == 'Fire' %}
-                                                <h4 style="float:left; color:#9B59B6; padding-right: 5px;">FIRE&nbsp;</h4>
-                                            {% elseif crisis.category.wording == 'Dengue' %}
-                                                <h4 style="float:left; color:#3498DB; padding-right: 5px;">DENGUE&nbsp;</h4>
-                                            {% elseif crisis.category.wording == 'Haze' %}
-                                                <h4 style="float:left; color:#E74C3C; padding-right: 5px;">HAZE&nbsp;</h4>
-                                            {% endif %}
-                                            <p style="margin:0;">{{ crisis.addressLine1 }}</p>
-                                            <small class="line-height:0;padding:0;">{{ crisis.submittedOn|date('d-m-Y H:i:s') }}</small>
-                                        </li>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Recent Cases</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content {% if data|length > 5 %}pre-scrollable{% endif %}" style="height:245px;">
+                <div class="activity_panel">
+                    <ul class="list-group">
+                        {% for crisis in data %}
+                            {% if crisis.showToPublic == 1 %}
+                                <li class="list-group-item" style="padding:4px;">
+                                    {% if crisis.category.wording == 'Vehicule Accident' %}
+                                        <h4 style="float:left; color:#1ABB9C; padding-right: 5px;">ACCI&nbsp;</h4>
+                                    {% elseif crisis.category.wording == 'Fire' %}
+                                        <h4 style="float:left; color:#9B59B6; padding-right: 5px;">FIRE&nbsp;</h4>
+                                    {% elseif crisis.category.wording == 'Dengue' %}
+                                        <h4 style="float:left; color:#3498DB; padding-right: 5px;">DENGUE&nbsp;</h4>
+                                    {% elseif crisis.category.wording == 'Haze' %}
+                                        <h4 style="float:left; color:#E74C3C; padding-right: 5px;">HAZE&nbsp;</h4>
                                     {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
+                                    <p style="margin:0;">{{ crisis.addressLine1 }}</p>
+                                    <small class="line-height:0;padding:0;">{{ crisis.submittedOn|date('d-m-Y H:i:s') }}</small>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

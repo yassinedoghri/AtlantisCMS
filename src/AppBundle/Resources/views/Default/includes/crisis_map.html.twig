@@ -21,13 +21,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-6">
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" value="1" name="category" checked/> Haze
-                            </label>
-                        </div>
-                        <br/>
-                        <div class="">
-                            <label>
-                                <input type="checkbox" class="js-switch" value="2" name="category"  checked/> Dengue
+                                <input type="checkbox" class="js-switch" value="3" name="category" checked/> Dengue
                             </label>
                         </div>
                         <br/>
@@ -35,13 +29,15 @@
                     <div class="col-md-12 col-sm-12 col-xs-6">
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" value="3" name="category" checked/> Fire Incidents
+                                <input type="checkbox" class="js-switch" value="2" name="category" checked/> Fire
+                                Incidents
                             </label>
                         </div>
                         <br/>
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" value="4" name="category"  checked/> Car Accidents
+                                <input type="checkbox" class="js-switch" value="1" name="category" checked/> Car
+                                Accidents
                             </label>
                         </div>
                     </div>
@@ -68,7 +64,7 @@
         // toggle checkbox onchange
         $(function () {
             $('[name="category"]').on('change', filterMarkers);
-        })
+        });
 
         // initialize map
         function initMap() {
@@ -79,100 +75,119 @@
             });
 
             // fetch data from database and add as array of object
-        {% for crisis in data %} 
-            var lat = '{{ crisis.latitude}}';
-            var lng = '{{ crisis.longitude}}';
-            var firstname = '{{ crisis.contactFirstname }}';
-            var lastname = '{{ crisis.contactLastname }}';
-            var phonenumber = '{{ crisis.contactPhoneNumber }}';
-            var addrline1 = '{{ crisis.addressLine1 }}';
-            var addrline2 = '{{ crisis.addressLine2 }}';
-            var streetnumber = '{{ crisis.streetNumber }}';
-            var postalcode = '{{ crisis.postalCode }}';
-            var city = '{{ crisis.city }}';
-            var message = '{{ crisis.message }}';
-            var category = '{{ crisis.category.id }}';
-            var month = '{{ crisis.submittedOn|date('m') }}';
-            var date = '{{ crisis.submittedOn|date('d-m-Y') }}';
-            var showToPublic = '{{ crisis.showToPublic }}';
+            {% for crisis in data %}
+            var visibility = '{{ crisis.showToPublic }}';
+            console.log(visibility);
+            if (visibility) {
 
-            markersToAdd = [
-                [lat, lng, category, firstname, lastname, phonenumber, addrline1, addrline2, streetnumber, postalcode, city, message, category, month, date]
-            ];
+                var lat = '{{ crisis.latitude }}';
+                var lng = '{{ crisis.longitude }}';
+                var firstname = '{{ crisis.contactFirstname }}';
+                var lastname = '{{ crisis.contactLastname }}';
+                var phonenumber = '{{ crisis.contactPhoneNumber }}';
+                var addrline1 = '{{ crisis.addressLine1 }}';
+                var addrline2 = '{{ crisis.addressLine2 }}';
+                var streetnumber = '{{ crisis.streetNumber }}';
+                var postalcode = '{{ crisis.postalCode }}';
+                var city = '{{ crisis.city }}';
+                var message = '{{ crisis.message }}';
+                var category = '{{ crisis.category.id }}';
+                var month = '{{ crisis.submittedOn|date('m') }}';
+                var date = '{{ crisis.submittedOn|date('d-m-Y') }}';
+                var showToPublic = '{{ crisis.showToPublic }}';
+
+                var markerItem =
+                    {
+                        'lat': lat,
+                        'lng': lng,
+                        'category': category,
+                        'firstname': firstname,
+                        'lastname': lastname,
+                        'phoneNumber': phonenumber,
+                        'addrline1': addrline1,
+                        'addrline2': addrline2,
+                        'streetnumber': streetnumber,
+                        'postalcode': postalcode,
+                        'city': city,
+                        'message': message,
+                        'month': month,
+                        'date': date
+                    };
+                markersToAdd.push(markerItem);
+            }
+            {% endfor %}
 
             // loop through each marker and add them one by one
-            for (i = 0; i < markersToAdd.length; i++) {
+            for (var i = 0; i < markersToAdd.length; i++) {
                 addMarker(markersToAdd[i]);
             }
-        {% endfor %}
 
-                // graphs plotting
-                drawPieChart(crisislist);
-                drawRadarChart(crisislist);
-                //drawLineChart(crisislist);
-            }
+            // graphs plotting
+            drawPieChart(crisislist);
+            drawRadarChart(crisislist);
+            //drawLineChart(crisislist);
+        }
 
-            function addMarker(marker) {
-                var categoryString;
-                var newMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(marker[0], marker[1]),
-                    animation: google.maps.Animation.DROP,
-                    map: map
-                });
+        function addMarker(marker) {
+            var categoryString;
+            var newMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(marker['lat'], marker['lng']),
+                animation: google.maps.Animation.DROP,
+                map: map
+            });
 
-                // add the marker location together with category to temporary array to be toggled on and off layer
-                g_markers.push({markerObj: newMarker, category: marker[2]})
+            // add the marker location together with category to temporary array to be toggled on and off layer
+            g_markers.push({markerObj: newMarker, category: marker['category']});
 
-                // customize map marker and populate each crisis array for graphs plotting purpose
-                if (marker[2] == 1) {
-                    newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-                    categoryString = 'Haze Case';
-                    crisislist.push({category: marker[2], month: marker[13], date: marker[14]});
-                } else if (marker[2] == 2) {
-                    newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-                    categoryString = 'Dengue Case';
-                    crisislist.push({category: marker[2], month: marker[13], date: marker[14]});
-                } else if (marker[2] == 3) {
-                    newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
-                    categoryString = 'Fire Case';
-                    crisislist.push({category: marker[2], month: marker[13], date: marker[14]});
-                } else if (marker[2] == 4) {
-                    newMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-                    categoryString = 'Car Accident Case';
-                    crisislist.push({category: marker[2], month: marker[13], date: marker[14]});
-                }
-                // info window content
-                content = '<h5>' + categoryString + '</h5><br/>'
-                        + '<b>' + marker[6] + " " + marker[7] + '</b><br/>'
-                        + (marker[10].toUpperCase()) + " " + marker[9] + '<br/><br/>'
-                        + "Issued by: " + marker[3] + " " + marker[4] + '<br/>'
-                        + "Issued on:  " + marker[14] + '<br/>'
-                        + "Contact number: " + marker[5];
+            categoryString = {
+                '1': 'Vehicule Accident',
+                '2': 'Fire',
+                '3': 'Dengue',
+                '4': 'Haze'
+            };
 
-                infowindow = new google.maps.InfoWindow()
-                google.maps.event.addListener(newMarker, 'click', (function (newMarker, content, infowindow) {
-                    return function () {
-                        infowindow.setContent(content);
-                        infowindow.open(map, newMarker);
-                    };
-                })(newMarker, content, infowindow));
-            }
+            // customize map marker and populate each crisis array for graphs plotting purpose
+            newMarker.setIcon({
+                url: '/bundles/app/img/map-markers/' + marker['category'] + '.png',
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35, 35)
+            });
+            crisislist.push({category: marker['category'], month: marker['month'], date: marker['date']});
 
-            // function to filter markers by category
-            function filterMarkers() {
-                // get checked categories
-                var checkedCategories = [];
+            // info window content
+            content = '<h5>' + categoryString[marker['category']] + '</h5><br/>'
+                + '<b>' + marker['addrline1'] + '</b><br/>'
+                + (marker['city'].toUpperCase()) + ' ' + marker['postalcode'] + '<br/><br/>'
+                + 'Issued by: ' + marker['firstname'] + ' ' + marker['lastname'] + '<br/>'
+                + 'Issued on:  ' + marker['date'] + '<br/>'
+                + 'Contact number: ' + marker['phoneNumber'];
 
-                $('[name="category"]:checked').each(function () {
-                    checkedCategories.push(parseInt($(this).val()));
-                });
+            infowindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(newMarker, 'click', (function (newMarker, content, infowindow) {
+                return function () {
+                    infowindow.setContent(content);
+                    infowindow.open(map, newMarker);
+                };
+            })(newMarker, content, infowindow));
+        }
 
-                // filter markers
-                $(g_markers).each(function () {
-                    this.markerObj.setVisible(
-                            checkedCategories.indexOf(parseInt(this.category)) !== -1
-                            );
-                });
-            }
+        // function to filter markers by category
+        function filterMarkers() {
+            // get checked categories
+            var checkedCategories = [];
+
+            $('[name="category"]:checked').each(function () {
+                checkedCategories.push(parseInt($(this).val()));
+            });
+
+            // filter markers
+            $(g_markers).each(function () {
+                this.markerObj.setVisible(
+                    checkedCategories.indexOf(parseInt(this.category)) !== -1
+                );
+            });
+        }
     </script>
 {% endblock %}

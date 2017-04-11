@@ -2,95 +2,104 @@
 
 {% block stylesheets %}
     <style>
-    .chart-legend li span{
-        display: inline-block ; 
-        width: 12px;
-        height: 8px;
-        margin-right: 5px;
-    } 
-    .chart-legend ul li{
-        list-style: none;
-        padding-left: 5px;
-        font-size: 9px;
-    }
-    .leftbox {
-        float:left; 
-        width: 50%;
-        text-align: right;
-        padding-right: 8px;
-    }
-    .rightbox {
-        float:right; 
-        width: 50%;
-        text-align: left;
-        padding-left: 8px;
-    }
-    .rightbox_text{
-        font-size: 16px;
-        margin: 0px;
-    }
-    .leftbox_text{
-        font-size: 30px;
-        margin-top: -3px;
-    }
-    .left_hazebox {
-        float:left; 
-        width: 50%;
-        text-align: right;
-        padding-right: 8px;
-    }
-    .right_hazebox {
-        float:right; 
-        width: 50%;
-        text-align: left;
-        padding-left: 8px;
-    }
-    .right_hazebox_text{
-        font-size: 25px;
-        margin: -3px;
-    }
-    .left_hazebox_text{
-        font-size: 18px;
-        margin-top: 0px;
-    }
+        .chart-legend li span {
+            display: inline-block;
+            width: 12px;
+            height: 8px;
+            margin-right: 5px;
+        }
+
+        .chart-legend ul li {
+            list-style: none;
+            padding-left: 5px;
+            font-size: 9px;
+        }
+
+        .leftbox {
+            float: left;
+            width: 50%;
+            text-align: right;
+            padding-right: 8px;
+        }
+
+        .rightbox {
+            float: right;
+            width: 50%;
+            text-align: left;
+            padding-left: 8px;
+        }
+
+        .rightbox_text {
+            font-size: 16px;
+            margin: 0px;
+        }
+
+        .leftbox_text {
+            font-size: 30px;
+            margin-top: -3px;
+        }
+
+        .left_hazebox {
+            float: left;
+            width: 50%;
+            text-align: right;
+            padding-right: 8px;
+        }
+
+        .right_hazebox {
+            float: right;
+            width: 50%;
+            text-align: left;
+            padding-left: 8px;
+        }
+
+        .right_hazebox_text {
+            font-size: 25px;
+            margin: -3px;
+        }
+
+        .left_hazebox_text {
+            font-size: 18px;
+            margin-top: 0px;
+        }
     </style>
 {% endblock %}
 
 {% block page_content %}
-        <!-- top tiles -->
-        <div class="row tile_count">
+    <!-- top tiles -->
+    <div class="row tile_count">
         {{ include('AppBundle:Default/includes:toptile.html.twig') }}
-        </div>
-        <!-- /top tiles -->
+    </div>
+    <!-- /top tiles -->
 
-        <div class="row">
-            {{ include('AppBundle:Default/includes:crisis_map.html.twig') }}
+    <div class="row">
+        {{ include('AppBundle:Default/includes:crisis_map.html.twig') }}
 
-            {{ include('AppBundle:Default/includes:weather_widget.html.twig') }}
-            
-        </div>
-        <div class="row">
-            {{ include('AppBundle:Default/includes:crises_top_month.html.twig') }}
+        {{ include('AppBundle:Default/includes:weather_widget.html.twig') }}
 
-            {{ include('AppBundle:Default/includes:doughnut_chart.html.twig') }}
-            
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    </div>
+    <div class="row">
+        {{ include('AppBundle:Default/includes:crises_top_month.html.twig') }}
+
+        {{ include('AppBundle:Default/includes:doughnut_chart.html.twig') }}
+
+
+        {{ include('AppBundle:Default/includes:haze_psi_table.html.twig') }}
+    </div>
+
+    <div class="row">
+
+
+        {{ include('AppBundle:Default/includes:radar_chart.html.twig') }}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {{ include('AppBundle:Default/includes:pending_request.html.twig') }}
-            {% else %}
+        {% else %}
             {{ include('AppBundle:Default/includes:recent_cases.html.twig') }}
-            {% endif %}
+        {% endif %}
 
-        </div>
+        {#{{ include('AppBundle:Default/includes:timeline_charts.html.twig') }}#}
 
-        <div class="row">
-
-            {{ include('AppBundle:Default/includes:haze_psi_table.html.twig') }}
-
-             {{ include('AppBundle:Default/includes:radar_chart.html.twig') }}
-
-             <!-- {{ include('AppBundle:Default/includes:timeline_charts.html.twig') }} -->
-            
-        </div>
+    </div>
     <!-- /page content -->
 {% endblock %}
 
@@ -99,28 +108,28 @@
             async defer></script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 {% endblock %}
 
 {% block custom_javascripts %}
     <script type="text/javascript">
-    
+
         function init_skycons2() {
             if (typeof (Skycons) === 'undefined') {
-            return;
+                return;
             }
-            
+
             console.log('init_skycons');
 
             var icons = new Skycons({
                     "color": "#73879C"
-            }),
-            list = [
-                "clear-day", "clear-night", "partly-cloudy-day",
-                "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-                "fog"
-            ],
-            i;
+                }),
+                list = [
+                    "clear-day", "clear-night", "partly-cloudy-day",
+                    "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                    "fog"
+                ],
+                i;
 
             for (i = list.length; i--;) {
                 var weatherType = list[i],
@@ -129,7 +138,7 @@
                     icons.set(elements[e], weatherType);
                 }
             }
-        
+
             icons.play();
 
         }

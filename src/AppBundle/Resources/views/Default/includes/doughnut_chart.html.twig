@@ -13,7 +13,7 @@
             </div>
             <div class="x_content">
                 <h5 style="text-align: center;margin-top:0px;">Crises Summary for April</h5>
-                <canvas id="myPieChart" style="width: 100%; height: auto;"></canvas>
+                <canvas id="myPieChart" style="width: 100%; height: auto;" height="100"></canvas>
                 <div id="pie-legend" class="chart-legend"></div>
             </div>
         </div>
@@ -28,17 +28,18 @@
             
             var d = new Date();
             var currentMonth = d.getMonth() + 1;
+            console.log(crisislist);
             
             for (var i = 0; i < crisislist.length; i++) {
                 if(crisislist[i].month == currentMonth){
                     if (crisislist[i].category == 1) {
-                        totalhaze++;
-                    } else if (crisislist[i].category == 2) {
-                        totaldengue++;
-                    } else if (crisislist[i].category == 3) {
-                        totalfire++;
-                    } else if (crisislist[i].category == 4) {
                         totalaccident++;
+                    } else if (crisislist[i].category == 2) {
+                        totalfire++;
+                    } else if (crisislist[i].category == 3) {
+                        totaldengue++;
+                    } else if (crisislist[i].category == 4) {
+                        totalhaze++;
                     }
                 }
             }

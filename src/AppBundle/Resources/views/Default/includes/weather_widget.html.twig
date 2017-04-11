@@ -1,158 +1,159 @@
 <!-- start of weather widget -->
 {% block page_content %}
-<div class="col-md-4 col-sm-4 col-xs-12">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Weather Data
-                <small>
-                	{% set curr_time = date() %}
-                	{% set update_time = date(weatherData["items"][0]["update_timestamp"]|slice(10,9)) %}
-                	{%  set diff = curr_time.diff(update_time) %}
-                	Updated {{ diff.format("%i mins") }} ago
-                </small>
-            </h2>
-            <ul class="nav navbar-right panel_toolbox">
-                <li><a><i class="fa fa-refresh"></i></a>
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="temperature">
-                    	<b>{{ 'now'|date('l') }}, {{ 'now'|date('h:i A') }}</b>                        
-                    </div>
-                </div>
-            </div>
-            
-            <!-- aStart of weather icon for general temperature -->
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="weather-icon">
-                    	{% set weatherArray = weatherData["items"][0]["general"]["forecast"]|split(' (') %}
-                        {% set weather = weatherArray[0]%}
-                        {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
-                            <canvas height="100" width="100" class="partly-cloudy-day"></canvas>
-                        {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
-                        	<canvas height="100" width="100" class="partly-cloudy-night"></canvas>
-                        {% elseif weather == "Cloudy" %}
-                        	<canvas height="100" width="100" class="cloudy"></canvas>      
-                        {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
-                        	<canvas height="100" width="100" class="clear-day"></canvas>
-                        {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
-                        	<canvas height="100" width="100" class="clear-night"></canvas>
-                        {% elseif weather == "Thundery Showers" %}
-                        	<canvas height="100" width="100" class="rain"></canvas>
-                        {% endif %}
-                    </div>
-                </div>
-                <!-- End of weather icon for general temperature -->
-                
-                <!-- Start of general temperature -->
-                <div class="col-sm-8">
-                    <div class="weather-text">
-                        <h2><b>Singapore</b> <br><i>{{ weatherData["items"][0]["general"]["forecast"] }}</i></h2>
-                        {% for key in weatherData["items"][0]["general"]["temperature"]|keys %}
-                        <h3 class="degrees">{{ key }}: {{ weatherData["items"][0]["general"]["temperature"][key] }}</h3>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <!-- End of general temperature -->
-            
-            <div class="clearfix"></div>
-
-            <!-- Start of first period of weather forecast -->
-            <div class="row weather-days">
-            	<div class="col-sm-4">
-                	<div class="daily-weather">
-                    	<h2 class="day">
-                    		{%  set start_time = weatherData["items"][0]["periods"][0]["time"]["start"]|slice(10,6)|date("h:i A") %}
-                            {%  set end_time = weatherData["items"][0]["periods"][0]["time"]["end"]|slice(11,5)|date("h:i A") %}
-                    		{{ start_time }} - {{ end_time }}
-                        </h2>      
-                        <center>
-                        	{% set weatherArray = weatherData["items"][0]["periods"][0]["regions"]["west"]|split(' (') %}
-                            {% set weather = weatherArray[0]%}
-                            {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
-                                <canvas class="partly-cloudy-day" width="32" height="32"></canvas>
-                            {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
-                                <canvas class="partly-cloudy-night" width="32" height="32"></canvas>
-                            {% elseif weather == "Cloudy" %}
-                                <canvas class="cloudy" width="32" height="32"></canvas>      
-                            {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
-                                <canvas class="clear-day" width="32" height="32"></canvas>
-                            {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
-                                <canvas class="clear-night" width="32" height="32"></canvas>
-                            {% elseif weather == "Thundery Showers" %}
-                                <canvas class="rain" width="32" height="32"></canvas>
-                            {% endif %}
-                        </center>
-                    	<h5 class="weather-text">{{ weatherData["items"][0]["periods"][0]["regions"]["west"] }}</h5>
-                	</div>
-                </div>
-                <div class="col-sm-4">
-                	<div class="daily-weather">
-                    	<h2 class="day">
-                    		{%  set start_time = weatherData["items"][0]["periods"][1]["time"]["start"]|slice(10,6)|date("h:i A") %}
-                            {%  set end_time = weatherData["items"][0]["periods"][1]["time"]["end"]|slice(11,5)|date("h:i A") %}
-                    		{{ start_time }} - {{ end_time }}
-                        </h2>      
-                        <center>
-                        	{% set weatherArray = weatherData["items"][0]["periods"][1]["regions"]["west"]|split(' (') %}
-                            {% set weather = weatherArray[0]%}
-                            {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
-                                <canvas class="partly-cloudy-day" width="32" height="32"></canvas>
-                            {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
-                                <canvas class="partly-cloudy-night" width="32" height="32"></canvas>
-                            {% elseif weather == "Cloudy" %}
-                                <canvas class="cloudy" width="32" height="32"></canvas>      
-                            {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
-                                <canvas class="clear-day" width="32" height="32"></canvas>
-                            {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
-                                <canvas class="clear-night" width="32" height="32"></canvas>
-                            {% elseif weather == "Thundery Showers" %}
-                                <canvas class="rain" width="32" height="32"></canvas>
-                            {% endif %}
-                    	<h5 class="weather-text">{{ weatherData["items"][0]["periods"][1]["regions"]["west"] }}</h5>                            
-                	</div>
-                </div>
-                <div class="col-sm-4">
-                	<div class="daily-weather">
-                    	<h2 class="day">
-                    		{%  set start_time = weatherData["items"][0]["periods"][2]["time"]["start"]|slice(10,6)|date("h:i A") %}
-                            {%  set end_time = weatherData["items"][0]["periods"][2]["time"]["end"]|slice(11,5)|date("h:i A") %}
-                    		{{ start_time }} - {{ end_time }}
-                        </h2>      
-                        <center>
-                        	{% set weatherArray = weatherData["items"][0]["periods"][2]["regions"]["west"]|split(' (') %}
-                            {% set weather = weatherArray[0]%}
-                            {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
-                                <canvas class="partly-cloudy-day" width="32" height="32"></canvas>
-                            {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
-                            	<canvas class="partly-cloudy-night" width="32" height="32"></canvas>
-                            {% elseif weather == "Cloudy" %}
-                            	<canvas class="cloudy" width="32" height="32"></canvas>      
-                            {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
-                            	<canvas class="clear-day" width="32" height="32"></canvas>
-                            {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
-                            	<canvas class="clear-night" width="32" height="32"></canvas>
-                            {% elseif weather == "Thundery Showers" %}
-                            	<canvas class="rain" width="32" height="32"></canvas>
-                            {% endif %}
-                        </center>
-                    	<h5 class="weather-text">{{ weatherData["items"][0]["periods"][2]["regions"]["west"] }}</h5>                            
-                	</div>
-                </div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Weather Data
+                    <small>
+                        {% set curr_time = date() %}
+                        {% set update_time = date(weatherData["items"][0]["update_timestamp"]|slice(10,9)) %}
+                        {% set diff = curr_time.diff(update_time) %}
+                        Updated {{ diff.format("%i mins") }} ago
+                    </small>
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a><i class="fa fa-refresh"></i></a>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
                 <div class="clearfix"></div>
             </div>
-        </div>
-    </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="temperature">
+                            <b>{{ 'now'|date('l') }}, {{ 'now'|date('h:i A') }}</b>
+                        </div>
+                    </div>
+                </div>
 
-</div>
-<!-- end of weather widget -->
+                <!-- aStart of weather icon for general temperature -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="weather-icon">
+                            {% set weatherArray = weatherData["items"][0]["general"]["forecast"]|split(' (') %}
+                            {% set weather = weatherArray[0] %}
+                            {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
+                                <canvas height="100" width="100" class="partly-cloudy-day"></canvas>
+                            {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
+                                <canvas height="100" width="100" class="partly-cloudy-night"></canvas>
+                            {% elseif weather == "Cloudy" %}
+                                <canvas height="100" width="100" class="cloudy"></canvas>
+                            {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
+                                <canvas height="100" width="100" class="clear-day"></canvas>
+                            {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
+                                <canvas height="100" width="100" class="clear-night"></canvas>
+                            {% elseif weather == "Thundery Showers" %}
+                                <canvas height="100" width="100" class="rain"></canvas>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- End of weather icon for general temperature -->
+
+                    <!-- Start of general temperature -->
+                    <div class="col-sm-8">
+                        <div class="weather-text">
+                            <h2><b>Singapore</b> <br><i>{{ weatherData["items"][0]["general"]["forecast"] }}</i></h2>
+                            {% for key in weatherData["items"][0]["general"]["temperature"]|keys %}
+                                <h3 class="degrees">{{ key }}
+                                    : {{ weatherData["items"][0]["general"]["temperature"][key] }}</h3>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End of general temperature -->
+
+                <div class="clearfix"></div>
+
+                <!-- Start of first period of weather forecast -->
+                <div class="row weather-days">
+                    <div class="col-sm-4">
+                        <div class="daily-weather">
+                            <h2 class="day">
+                                {% set start_time = weatherData["items"][0]["periods"][0]["time"]["start"]|slice(10,6)|date("h:i A") %}
+                                {% set end_time = weatherData["items"][0]["periods"][0]["time"]["end"]|slice(11,5)|date("h:i A") %}
+                                {{ start_time }} - {{ end_time }}
+                            </h2>
+                            <center>
+                                {% set weatherArray = weatherData["items"][0]["periods"][0]["regions"]["west"]|split(' (') %}
+                                {% set weather = weatherArray[0] %}
+                                {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
+                                    <canvas class="partly-cloudy-day" width="32" height="32"></canvas>
+                                {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
+                                    <canvas class="partly-cloudy-night" width="32" height="32"></canvas>
+                                {% elseif weather == "Cloudy" %}
+                                    <canvas class="cloudy" width="32" height="32"></canvas>
+                                {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
+                                    <canvas class="clear-day" width="32" height="32"></canvas>
+                                {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
+                                    <canvas class="clear-night" width="32" height="32"></canvas>
+                                {% elseif weather == "Thundery Showers" %}
+                                    <canvas class="rain" width="32" height="32"></canvas>
+                                {% endif %}
+                            </center>
+                            <h5 class="weather-text">{{ weatherData["items"][0]["periods"][0]["regions"]["west"] }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="daily-weather">
+                            <h2 class="day">
+                                {% set start_time = weatherData["items"][0]["periods"][1]["time"]["start"]|slice(10,6)|date("h:i A") %}
+                                {% set end_time = weatherData["items"][0]["periods"][1]["time"]["end"]|slice(11,5)|date("h:i A") %}
+                                {{ start_time }} - {{ end_time }}
+                            </h2>
+                            <center>
+                                {% set weatherArray = weatherData["items"][0]["periods"][1]["regions"]["west"]|split(' (') %}
+                                {% set weather = weatherArray[0] %}
+                                {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
+                                    <canvas class="partly-cloudy-day" width="32" height="32"></canvas>
+                                {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
+                                    <canvas class="partly-cloudy-night" width="32" height="32"></canvas>
+                                {% elseif weather == "Cloudy" %}
+                                    <canvas class="cloudy" width="32" height="32"></canvas>
+                                {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
+                                    <canvas class="clear-day" width="32" height="32"></canvas>
+                                {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
+                                    <canvas class="clear-night" width="32" height="32"></canvas>
+                                {% elseif weather == "Thundery Showers" %}
+                                    <canvas class="rain" width="32" height="32"></canvas>
+                                {% endif %}
+                                <h5 class="weather-text">{{ weatherData["items"][0]["periods"][1]["regions"]["west"] }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="daily-weather">
+                            <h2 class="day">
+                                {% set start_time = weatherData["items"][0]["periods"][2]["time"]["start"]|slice(10,6)|date("h:i A") %}
+                                {% set end_time = weatherData["items"][0]["periods"][2]["time"]["end"]|slice(11,5)|date("h:i A") %}
+                                {{ start_time }} - {{ end_time }}
+                            </h2>
+                            <center>
+                                {% set weatherArray = weatherData["items"][0]["periods"][2]["regions"]["west"]|split(' (') %}
+                                {% set weather = weatherArray[0] %}
+                                {% if (weather == "Partly Cloudy") and (weatherArray[1] == "Day)") %}
+                                    <canvas class="partly-cloudy-day" width="32" height="32"></canvas>
+                                {% elseif (weather == "Partly Cloudy") and (weatherArray[1] == "Night)") %}
+                                    <canvas class="partly-cloudy-night" width="32" height="32"></canvas>
+                                {% elseif weather == "Cloudy" %}
+                                    <canvas class="cloudy" width="32" height="32"></canvas>
+                                {% elseif (weather == "Clear") and (weatherArray[1] == "Day)") %}
+                                    <canvas class="clear-day" width="32" height="32"></canvas>
+                                {% elseif (weather == "Clear") and (weatherArray[1] == "Night)") %}
+                                    <canvas class="clear-night" width="32" height="32"></canvas>
+                                {% elseif weather == "Thundery Showers" %}
+                                    <canvas class="rain" width="32" height="32"></canvas>
+                                {% endif %}
+                            </center>
+                            <h5 class="weather-text">{{ weatherData["items"][0]["periods"][2]["regions"]["west"] }}</h5>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end of weather widget -->
 {% endblock %}
 
