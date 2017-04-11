@@ -66,106 +66,8 @@
         <div class="row">
             {{ include('AppBundle:Default/includes:crisis_map.html.twig') }}
 
-            <!-- start of weather widget -->
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Weather Data
-                            <small>Updated 30min ago</small>
-                        </h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a><i class="fa fa-refresh"></i></a></li>
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="temperature"><b>Monday</b>, 07:30 AM
-                                    <span>F</span>
-                                    <span><b>C</b></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="weather-icon">
-                                    <canvas height="84" width="84" id="partly-cloudy-day"></canvas>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="weather-text">
-                                    <h2>Singapore <br><i>Partly Cloudy Day</i></h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="weather-text pull-right">
-                                <h3 class="degrees">23</h3>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div class="row weather-days">
-                            <div class="col-sm-2">
-                                <div class="daily-weather">
-                                    <h2 class="day">Mon</h2>
-                                    <h3 class="degrees">25</h3>
-                                    <canvas id="clear-day" width="32" height="32"></canvas>
-                                    <h5>15 <i>km/h</i></h5>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="daily-weather">
-                                    <h2 class="day">Tue</h2>
-                                    <h3 class="degrees">25</h3>
-                                    <canvas height="32" width="32" id="rain"></canvas>
-                                    <h5>12 <i>km/h</i></h5>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="daily-weather">
-                                    <h2 class="day">Wed</h2>
-                                    <h3 class="degrees">27</h3>
-                                    <canvas height="32" width="32" id="snow"></canvas>
-                                    <h5>14 <i>km/h</i></h5>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="daily-weather">
-                                    <h2 class="day">Thu</h2>
-                                    <h3 class="degrees">28</h3>
-                                    <canvas height="32" width="32" id="sleet"></canvas>
-                                    <h5>15 <i>km/h</i></h5>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="daily-weather">
-                                    <h2 class="day">Fri</h2>
-                                    <h3 class="degrees">28</h3>
-                                    <canvas height="32" width="32" id="wind"></canvas>
-                                    <h5>11 <i>km/h</i></h5>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="daily-weather">
-                                    <h2 class="day">Sat</h2>
-                                    <h3 class="degrees">26</h3>
-                                    <canvas height="32" width="32" id="cloudy"></canvas>
-                                    <h5>10 <i>km/h</i></h5>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- end of weather widget -->
+            {{ include('AppBundle:Default/includes:weather_widget.html.twig') }}
+            
         </div>
         <div class="row">
             {{ include('AppBundle:Default/includes:crises_top_month.html.twig') }}
@@ -201,7 +103,37 @@
 {% endblock %}
 
 {% block custom_javascripts %}
-    <!-- Custom Theme Scripts -->
-    <script>
+    <script type="text/javascript">
+    
+        function init_skycons2() {
+            if (typeof (Skycons) === 'undefined') {
+            return;
+            }
+            
+            console.log('init_skycons');
+
+            var icons = new Skycons({
+                    "color": "#73879C"
+            }),
+            list = [
+                "clear-day", "clear-night", "partly-cloudy-day",
+                "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                "fog"
+            ],
+            i;
+
+            for (i = list.length; i--;) {
+                var weatherType = list[i],
+                    elements = document.getElementsByClassName(weatherType);
+                for (e = elements.length; e--;) {
+                    icons.set(elements[e], weatherType);
+                }
+            }
+        
+            icons.play();
+
+        }
+        init_skycons2();
+
     </script>
 {% endblock %}

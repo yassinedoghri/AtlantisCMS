@@ -663,7 +663,7 @@ function init_JQVmap() {
 };
 
 
-function init_skycons() {
+/*function init_skycons() {
 
     if (typeof (Skycons) === 'undefined') {
         return;
@@ -685,7 +685,7 @@ function init_skycons() {
 
     icons.play();
 
-}
+}*/
 
 
 function init_chart_doughnut() {
@@ -5341,7 +5341,7 @@ $(document).ready(function () {
     init_charts();
     init_echarts();
     init_morris_charts();
-    init_skycons();
+    //init_skycons();
     init_select2();
     init_validator();
     init_DataTables();
