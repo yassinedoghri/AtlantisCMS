@@ -28,7 +28,7 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "incenteev/composer-parameter-handler": "^2.0",
         "jmose/command-scheduler-bundle": "^1.2.3",
-        "phpmailer/phpmailer": "^5.2",
+        "phpmailer/phpmailer": "^6.5",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/monolog-bundle": "^3.0.2",
